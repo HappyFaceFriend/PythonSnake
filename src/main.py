@@ -12,7 +12,7 @@ def render(gameDisplay):
 
 pygame.init()
 #Init window settings
-Globals.gameDisplay = pygame.display.set_mode((Settings.display_width, Settings.display_hegiht))
+Globals.gameDisplay = pygame.display.set_mode((Settings.display_width, Settings.display_height))
 pygame.display.set_caption(Settings.title)
 pygame.display.set_icon(pygame.image.load(Settings.icon_path))
 #Init delta_time
