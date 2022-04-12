@@ -1,7 +1,6 @@
 import pygame
 import Input
 import Settings
-from SampleScene import SampleScene
 
 def update(delta_time):
     current_scene.update(delta_time)
@@ -19,7 +18,7 @@ pygame.display.set_icon(pygame.image.load(Settings.icon_path))
 delta_time=0
 last_tick=pygame.time.get_ticks()
 
-current_scene = SampleScene()
+current_scene = Settings.initial_scene
 running = True
 while running:
     #Handle events
