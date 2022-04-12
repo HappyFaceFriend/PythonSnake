@@ -23,6 +23,6 @@ class SampleScene:
             self.text.text = str(self.i)
 
     def render(self, gameDisplay):
-        pygame.draw.rect(gameDisplay, (0,0,0), pygame.Rect(0, 0, Settings.display_width, Settings.display_hegiht))
+        pygame.draw.rect(gameDisplay, (0,0,0), pygame.Rect(0, 0, Settings.display_width, Settings.display_height))
         self.player.render(gameDisplay) 
         self.text.render(gameDisplay)
