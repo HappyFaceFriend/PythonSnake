@@ -19,7 +19,7 @@ class Text:
         self.TextRect[2] += self.x
         self.TextRect[3] += self.y
         
-    def render(self,gameDisplay):
+    def render(self, gameDisplay):
         self.submit()
         gameDisplay.blit(self.TextSurf, self.TextRect)
     
