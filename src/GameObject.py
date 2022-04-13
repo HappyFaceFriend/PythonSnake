@@ -24,20 +24,23 @@ class GameObject:
 
 class Apple:
     def __init__(self):#implement image_path argument later
-        self.x=random.randint(0,BOARD_SIZE -1)
-        self.y=random.randint(0,BOARD_SIZE -1)
-        self.pos=Vector2(self.x,self.y)
+       self.random_spawn()
          
     def draw_apple(self):
         apple_rect=pygame.Rect(int(20+self.pos.x*CELL_SIZE),int(100+20+self.pos.y*CELL_SIZE),CELL_SIZE,CELL_SIZE)
         pygame.draw.rect(Globals.gameDisplay,'red',apple_rect)
+
+    def random_spawn(self):
+        self.x=random.randint(0,BOARD_SIZE -1)
+        self.y=random.randint(0,BOARD_SIZE -1)
+        self.pos=Vector2(self.x,self.y)
 
 class Snake:
     def __init__(self):
         self.body=[Vector2(BOARD_SIZE/2,BOARD_SIZE/2),Vector2(BOARD_SIZE/2,BOARD_SIZE/2 -1),
                    Vector2(BOARD_SIZE/2,BOARD_SIZE/2 -2),Vector2(BOARD_SIZE/2,BOARD_SIZE/2 -3)]
         self.dir=Vector2(0,-1)
-        self.speed=200
+        self.new_block = False
 
     def draw_snake(self):
         for block in self.body:
@@ -47,8 +50,17 @@ class Snake:
             pygame.draw.rect(Globals.gameDisplay,'yellow',block_rect)
 
     def move_snake(self):
-        copy=self.body[:-1]
-        copy.insert(0,copy[0]+self.dir)
-        self.body=copy[:]
+        if self.new_block ==True:
+            copy=self.body[:]
+            copy.insert(0,copy[0]+self.dir)
+            self.body=copy[:]
+            self.new_block =False
+        else: 
+            copy=self.body[:-1]
+            copy.insert(0,copy[0]+self.dir)
+            self.body=copy[:]
+         
+    def add_snake(self):
+        self.new_block=True
 
         

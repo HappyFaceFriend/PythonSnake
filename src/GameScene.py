@@ -1,6 +1,6 @@
 import pygame
 from pygame.constants import K_LEFT
-from GameObject import GameObject
+from GameObject import BOARD_SIZE, GameObject
 from GameObject import Apple
 from GameObject import Snake
 from pygame import Vector2
@@ -27,8 +27,12 @@ class GameScene:
         self.snake=Snake()
         pass
 
-    def update(self, delta_time):
+    def update(self):
         self.snake.move_snake()
+        self.has_collided()
+        self.out_of_range()
+        
+
         if Input.is_key_down(pygame.K_SPACE):
             self.add_score(1)
         if Input.is_key_down(pygame.K_UP):
@@ -43,8 +47,18 @@ class GameScene:
         if Input.is_key_down(pygame.K_RIGHT):
             if self.snake.dir.x!=-1:
                 self.snake.dir=Vector2(1,0)
+
         pass
 
+    def has_collided(self):
+        if self.apple.pos==self.snake.body[0]:
+            self.apple.random_spawn()
+            self.snake.add_snake()
+
+    def out_of_range(self):
+        if not 0<=self.snake.body[0].x<BOARD_SIZE or not 0<=self.snake.body[0].y<BOARD_SIZE:
+            pygame.quit()
+              
     def render(self, gameDisplay):
         self.render_backgrounds(gameDisplay)
         self.render_UIs(gameDisplay)
