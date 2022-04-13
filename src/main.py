@@ -3,8 +3,8 @@ import Input
 import Settings
 import Globals
 
-def update():
-    Globals.current_scene.update()
+def update(delta_time):
+    Globals.current_scene.update(delta_time)
 
 def render(gameDisplay):
     Globals.current_scene.render(gameDisplay)
@@ -16,9 +16,8 @@ Globals.gameDisplay = pygame.display.set_mode((Settings.display_width, Settings.
 pygame.display.set_caption(Settings.title)
 pygame.display.set_icon(pygame.image.load(Settings.icon_path))
 #Init delta_time
-SCREEN_UPDATE=pygame.USEREVENT
-pygame.time.set_timer(SCREEN_UPDATE,1)
-clock =pygame.time.Clock()
+delta_time=0
+last_time=pygame.time.get_ticks()
 
 Globals.current_scene = Settings.initial_scene
 running = True
@@ -27,17 +26,15 @@ while running:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
             running = False
-
     #Update inputs
     Input.keyboard.update()
     Input.mouse.update()
-
-  
     #Update
-    update()
+    delta_time=(pygame.time.get_ticks()-last_time) / 1000
+    last_time=pygame.time.get_ticks() 
+    update(delta_time)
     render(Globals.gameDisplay)
 
     Input.keyboard.late_update()
-    clock.tick(10)
 
 pygame.quit()
