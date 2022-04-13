@@ -1,6 +1,5 @@
 import pygame
 from GameObject import GameObject
-from GameObject import Apple
 import Input
 import Settings
 from Text import Text

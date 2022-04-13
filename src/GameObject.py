@@ -32,3 +32,23 @@ class Apple:
         apple_rect=pygame.Rect(int(20+self.pos.x*CELL_SIZE),int(100+20+self.pos.y*CELL_SIZE),CELL_SIZE,CELL_SIZE)
         pygame.draw.rect(Globals.gameDisplay,'red',apple_rect)
 
+class Snake:
+    def __init__(self):
+        self.body=[Vector2(BOARD_SIZE/2,BOARD_SIZE/2),Vector2(BOARD_SIZE/2,BOARD_SIZE/2 -1),
+                   Vector2(BOARD_SIZE/2,BOARD_SIZE/2 -2),Vector2(BOARD_SIZE/2,BOARD_SIZE/2 -3)]
+        self.dir=Vector2(0,-1)
+        self.speed=200
+
+    def draw_snake(self):
+        for block in self.body:
+            x=int(20+block.x*CELL_SIZE)
+            y=int(100+20+block.y*CELL_SIZE)
+            block_rect=pygame.Rect(x,y,CELL_SIZE,CELL_SIZE)
+            pygame.draw.rect(Globals.gameDisplay,'yellow',block_rect)
+
+    def move_snake(self):
+        copy=self.body[:-1]
+        copy.insert(0,copy[0]+self.dir)
+        self.body=copy[:]
+
+        
