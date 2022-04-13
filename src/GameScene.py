@@ -1,13 +1,12 @@
 import pygame
-from pygame.constants import K_LEFT
-from GameObject import BOARD_SIZE, GameObject
-from GameObject import Apple
+from GameObject import GameObject
 from pygame import Vector2
 import Input
 import Settings
 import Globals
 from Text import Text
 from Snake import Snake
+import random
 
 background_color = (150,150,255)
 board_color = (50,255,50)
@@ -19,15 +18,22 @@ move_interval = 0.1
 
 initial_length = 4
 
+
+def get_image_pos(board_pos):
+    return (Settings.border_size + board_pos[0]*Settings.cell_size[0],
+            Settings.topbar_height + Settings.border_size + board_pos[1]*Settings.cell_size[1])
+
 class GameScene:
     def __init__(self):
         self.crown = GameObject("images/crown.png", Settings.display_width / 2 + 170, 50)
         self.crown.set_size((self.crown.size[0] / 2, self.crown.size[1] / 2))
-        self.best_score_text = Text(str(Globals.best_score), 30, self.crown.x + 35 , 50)
+        self.best_score_text = Text(str(Globals.best_score), 30, self.crown.pos.x + 35 , 50)
         self.score = 0
         self.score_text = Text("0", 40, Settings.display_width / 2 , 40)
 
-        self.apple=Apple()
+        self.apple=GameObject("images/apple.png")
+        self.apple_boardpos = Vector2(0,0)
+        self.spawn_apple()
         self.snake=Snake(initial_length)
         
         self.tick = 0
@@ -35,39 +41,39 @@ class GameScene:
     def update(self, delta_time):
         self.tick += delta_time
         if self.tick >= move_interval:
-            self.snake.move_snake()
+            self.snake.update()
             self.has_collided()
-            self.out_of_range()
             self.tick -= move_interval
 
         if Input.is_key_down(pygame.K_UP):
-            if self.snake.dir.y!=1:
+            if self.snake.last_dir.y!=1:
                 self.snake.dir=Vector2(0,-1)
         if Input.is_key_down(pygame.K_DOWN):
-            if self.snake.dir.y!=-1:
+            if self.snake.last_dir.y!=-1:
                 self.snake.dir=Vector2(0,1)
         if Input.is_key_down(pygame.K_LEFT):
-            if self.snake.dir.x!=1:
+            if self.snake.last_dir.x!=1:
                 self.snake.dir=Vector2(-1,0)
         if Input.is_key_down(pygame.K_RIGHT):
-            if self.snake.dir.x!=-1:
+            if self.snake.last_dir.x!=-1:
                 self.snake.dir=Vector2(1,0)
 
-        pass
+    def spawn_apple(self):
+        x = random.randint(0, Settings.board_size[0] -1)
+        y = random.randint(0,Settings.board_size[1] -1)
+        self.apple_boardpos = Vector2(x,y)
+        self.apple.pos = get_image_pos((x,y))
 
     def has_collided(self):
-        if self.apple.pos==self.snake.body[0]:
-            self.apple.random_spawn()
+        print(self.apple_boardpos, self.snake.body[0])
+        if self.apple_boardpos == self.snake.body[0]:
+            self.spawn_apple()
             self.snake.add_snake()
-
-    def out_of_range(self):
-        if not 0<=self.snake.body[0].x<BOARD_SIZE or not 0<=self.snake.body[0].y<BOARD_SIZE:
-            pygame.quit()
               
     def render(self, gameDisplay):
         self.render_backgrounds(gameDisplay)
         self.render_UIs(gameDisplay)
-        self.apple.draw_apple()
+        self.apple.render(gameDisplay)
         self.snake.draw_snake()
 
     def add_score(self, score):

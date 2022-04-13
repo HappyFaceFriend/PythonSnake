@@ -1,3 +1,4 @@
+import Settings
 
 gameDisplay = None
 current_scene = None
