@@ -19,12 +19,12 @@ class TitleScene:
         self.start_button.onclick = self.button_clicked
 
         self.crown = GameObject("images/crown.png")
-        self.crown.x = center[0] - self.crown.size[0] / 2 - 50
-        self.crown.y = center[1] - self.crown.size[1] / 2 - 50
+        self.crown.pos.x = center[0] - self.crown.size[0] / 2 - 50
+        self.crown.pos.y = center[1] - self.crown.size[1] / 2 - 50
 
         self.speed = 100
         self.text = Text(text = str(Globals.best_score), size = 40,
-                         x = self.crown.x + self.crown.size[0] + 20, y = self.crown.y + 10)
+                         x = self.crown.pos.x + self.crown.size[0] + 20, y = self.crown.pos.y + 10)
     
     def button_clicked(self):
         Globals.current_scene = GameScene()
