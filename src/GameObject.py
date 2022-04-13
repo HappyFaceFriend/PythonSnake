@@ -8,5 +8,9 @@ class GameObject:
         self.size = self.image.get_rect().size
     def update(self, delta_time):
         pass
+    def set_size(self, size):
+        self.image = pygame.transform.scale(self.image, size)
+    def rotate(self, rot):
+        self.image = pygame.transform.rotate(self.image, rot)
     def render(self, gameDisplay):
         gameDisplay.blit(self.image, (self.x, self.y))
