@@ -15,6 +15,8 @@ board_color2 = (150,255,150)
 
 board_rect = pygame.Rect(20, 120, Settings.board_size[0] * Settings.cell_size[0], Settings.board_size[1] * Settings.cell_size[1])
 
+move_interval = 0.1
+
 class GameScene:
     def __init__(self):
         self.crown = GameObject("images/crown.png", Settings.display_width / 2 + 170, 50)
@@ -25,26 +27,27 @@ class GameScene:
 
         self.apple=Apple()
         self.snake=Snake()
-        pass
-
-    def update(self):
-        self.snake.move_snake()
-        self.has_collided()
-        self.out_of_range()
         
+        self.tick = 0
 
-        if Input.is_key_down(pygame.K_SPACE):
-            self.add_score(1)
-        if Input.is_key_down(pygame.K_UP):
+    def update(self, delta_time):
+        self.tick += delta_time
+        if self.tick >= move_interval:
+            self.snake.move_snake()
+            self.has_collided()
+            self.out_of_range()
+            self.tick -= move_interval
+
+        if Input.is_key_hold(pygame.K_UP):
             if self.snake.dir.y!=1:
                 self.snake.dir=Vector2(0,-1)
-        if Input.is_key_down(pygame.K_DOWN):
+        if Input.is_key_hold(pygame.K_DOWN):
             if self.snake.dir.y!=-1:
                 self.snake.dir=Vector2(0,1)
-        if Input.is_key_down(pygame.K_LEFT):
+        if Input.is_key_hold(pygame.K_LEFT):
             if self.snake.dir.x!=1:
                 self.snake.dir=Vector2(-1,0)
-        if Input.is_key_down(pygame.K_RIGHT):
+        if Input.is_key_hold(pygame.K_RIGHT):
             if self.snake.dir.x!=-1:
                 self.snake.dir=Vector2(1,0)
 

@@ -29,7 +29,7 @@ class TitleScene:
     def button_clicked(self):
         Globals.current_scene = GameScene()
 
-    def update(self):
+    def update(self, delta_time):
         self.start_button.update()
 
     def render(self, gameDisplay):

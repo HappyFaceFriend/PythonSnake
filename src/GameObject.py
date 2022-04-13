@@ -16,7 +16,7 @@ class GameObject:
     def update(self, delta_time):
         pass
     def set_size(self, size):
-        self.image = pygame.transform.scale(self.image, size)
+        self.image = pygame.transform.scale(self.image, (int(size[0]), int(size[1])))
     def rotate(self, rot):
         self.image = pygame.transform.rotate(self.image, rot)
     def render(self, gameDisplay):
