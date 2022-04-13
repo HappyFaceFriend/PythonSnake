@@ -1,5 +1,6 @@
 import pygame
 from GameObject import GameObject
+from GameObject import Apple
 import Input
 import Settings
 import Globals
@@ -18,6 +19,8 @@ class GameScene:
         self.best_score_text = Text(str(Globals.best_score), 30, self.crown.x + 35 , 50)
         self.score = 0
         self.score_text = Text("0", 40, Settings.display_width / 2 , 40)
+
+        self.apple=Apple()
         pass
 
     def update(self, delta_time):
@@ -28,6 +31,7 @@ class GameScene:
     def render(self, gameDisplay):
         self.render_backgrounds(gameDisplay)
         self.render_UIs(gameDisplay)
+        self.apple.draw_apple()
 
     def add_score(self, score):
         self.score += score
