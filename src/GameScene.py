@@ -7,6 +7,8 @@ import Globals
 from Text import Text
 from Snake import Snake
 import random
+import time
+
 
 background_color = (150,150,255)
 board_color = (50,255,50)
@@ -67,6 +69,10 @@ class GameScene:
         y = random.randint(0,Settings.board_size[1] -1)
         self.apple_boardpos = Vector2(x,y)
         self.apple.pos = get_image_pos((x,y))
+        
+      
+        
+
 
     def has_collided(self):
         print(self.apple_boardpos, self.snake.body[0])
