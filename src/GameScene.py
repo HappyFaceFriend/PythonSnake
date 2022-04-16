@@ -37,6 +37,10 @@ class GameScene:
         self.snake=Snake(initial_length)
         
         self.tick = 0
+        
+        self.background_sound = pygame.mixer.Sound("sounds/I Need a Stack.mp3")
+        self.bite_sound = pygame.mixer.Sound("sounds/Bite.wav")
+        self.background_sound.play(-1)
 
     def update(self, delta_time):
         self.tick += delta_time
@@ -69,12 +73,14 @@ class GameScene:
         if self.apple_boardpos == self.snake.body[0]:
             self.spawn_apple()
             self.snake.add_snake()
+            self.bite_sound.play()
               
     def render(self, gameDisplay):
         self.render_backgrounds(gameDisplay)
         self.render_UIs(gameDisplay)
         self.apple.render(gameDisplay)
         self.snake.draw_snake()
+        
 
     def add_score(self, score):
         self.score += score
