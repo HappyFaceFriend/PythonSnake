@@ -22,7 +22,7 @@ class Snake:
             copy=self.body[:-1]
             copy.insert(0, copy[0] + self.dir)
             self.body=copy[:]
-        self.out_of_range()
+        self.check_gameover()
         self.last_dir = self.dir
 
     def draw_snake(self):
@@ -35,6 +35,11 @@ class Snake:
     def add_snake(self):
         self.new_block=True
     
-    def out_of_range(self):
+    def check_gameover(self):
         if not 0<=self.body[0].x<Settings.board_size[0] or not 0<=self.body[0].y<Settings.board_size[1]:
             pygame.quit()
+
+        for block in self.body[1:]:
+            if block == self.body[0]:
+                pygame.quit()
+
