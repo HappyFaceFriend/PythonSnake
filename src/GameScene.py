@@ -63,6 +63,8 @@ class GameScene:
         if Input.is_key_down(pygame.K_RIGHT):
             if self.snake.last_dir.x!=-1:
                 self.snake.dir=Vector2(1,0)
+        if Input.is_key_down(pygame.K_ESCAPE):
+            self.pause_game()
 
     def spawn_apple(self):
         x = random.randint(0, Settings.board_size[0] -1)
@@ -71,9 +73,6 @@ class GameScene:
         self.apple.pos = get_image_pos((x,y))
         
       
-        
-
-
     def has_collided(self):
         print(self.apple_boardpos, self.snake.body[0])
         if self.apple_boardpos == self.snake.body[0]:
@@ -106,3 +105,9 @@ class GameScene:
         self.crown.render(gameDisplay)
         self.best_score_text.render(gameDisplay)
         self.score_text.render(gameDisplay)
+
+    def pause_game(self):
+        self.background_sound.stop()
+        Globals.paused=True
+        from PauseScene import PauseScene
+        Globals.current_scene=PauseScene()

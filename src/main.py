@@ -32,6 +32,7 @@ while running:
     #Update
     delta_time=(pygame.time.get_ticks()-last_time) / 1000
     last_time=pygame.time.get_ticks() 
+   
     update(delta_time)
     render(Globals.gameDisplay)
 

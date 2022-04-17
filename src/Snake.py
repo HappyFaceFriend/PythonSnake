@@ -30,8 +30,8 @@ class Snake:
     def draw_snake(self):
         index = 0
         for block in self.body:
-            x=int(20 + block.x * Settings.cell_size[0])
-            y=int(100 + 20 + block.y * Settings.cell_size[1])
+            x=int(15 + block.x * Settings.cell_size[0])
+            y=int(95 + 20 + block.y * Settings.cell_size[1])
            
             if index == 0 :
                 snake_body = pygame.image.load("images/snake/head.png")
