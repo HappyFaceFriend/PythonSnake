@@ -6,6 +6,7 @@ import Settings
 import Globals
 from Text import Text
 from Snake import Snake
+from GameOverScene import GameOverScene
 import random
 import time
 
@@ -41,14 +42,18 @@ class GameScene:
         self.tick = 0
         
         self.background_sound = pygame.mixer.Sound("sounds/I Need a Stack.mp3")
-        self.bite_sound = pygame.mixer.Sound("sounds/Bite.wav")
+        self.background_sound.set_volume(0.5)
         self.background_sound.play(-1)
+        self.bite_sound = pygame.mixer.Sound("sounds/Bite.wav")
+        self.bite_sound.set_volume(0.5)
 
     def update(self, delta_time):
         self.tick += delta_time
         if self.tick >= move_interval:
             self.snake.update()
-            self.has_collided()
+            if self.snake.is_dead:
+                Globals.current_scene = GameOverScene()
+            self.check_apple_collision()
             self.tick -= move_interval
 
         if Input.is_key_down(pygame.K_UP):
@@ -73,7 +78,7 @@ class GameScene:
         self.apple.pos = get_image_pos((x,y))
         
       
-    def has_collided(self):
+    def check_apple_collision(self):
         print(self.apple_boardpos, self.snake.body[0])
         if self.apple_boardpos == self.snake.body[0]:
             self.spawn_apple()
@@ -84,7 +89,7 @@ class GameScene:
         self.render_backgrounds(gameDisplay)
         self.render_UIs(gameDisplay)
         self.apple.render(gameDisplay)
-        self.snake.draw_snake()
+        self.snake.render(gameDisplay)
         
 
     def add_score(self, score):
@@ -108,6 +113,9 @@ class GameScene:
 
     def pause_game(self):
         self.background_sound.stop()
-        Globals.paused=True
+        
         from PauseScene import PauseScene
-        Globals.current_scene=PauseScene()
+        Globals.current_scene=PauseScene(self)
+
+    def on_resume_game(self):
+        self.background_sound.play(-1)

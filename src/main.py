@@ -20,12 +20,11 @@ delta_time=0
 last_time=pygame.time.get_ticks()
 
 Globals.current_scene = Settings.initial_scene
-running = True
-while running:
+while Globals.running:
     #Handle events
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
-            running = False
+            Globals.running = False
     #Update inputs
     Input.keyboard.update()
     Input.mouse.update()
