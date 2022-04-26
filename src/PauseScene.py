@@ -7,10 +7,12 @@ import Settings
 from Text import Text
 from Button import Button
 import Globals
-
+import FileManager
 
 class PauseScene:
-    def __init__(self):
+    def __init__(self, gamescene):
+        self.gamescene = gamescene
+
         self.bg = GameObject("images/pausescene_bg.png")
         self.bg.set_size((Settings.display_width, Settings.display_height))
         center = (Settings.display_width / 2, Settings.display_height / 2)
@@ -41,13 +43,15 @@ class PauseScene:
         self.exit_button.onclick = self.exitButton_clicked
    
     def saveButton_clicked(self):
-         Globals.current_scene = GameScene()
+         FileManager.save_gamescene(self.gamescene)
+         Globals.change_scene(self.gamescene)
     def exitButton_clicked(self):
-         Globals.current_scene = TitleScene()
+         Globals.change_scene(TitleScene())
     def restartButton_clicked(self):
-         Globals.current_scene = GameScene()
+         Globals.change_scene(GameScene())
     def resumeButton_clicked(self):
-         Globals.current_scene = GameScene()
+         self.gamescene.on_resume_game()
+         Globals.change_scene(self.gamescene)
 
 
     def update(self, delta_time):
