@@ -7,7 +7,7 @@ import Settings
 from Text import Text
 from Button import Button
 import Globals
-
+import FileManager
 
 class PauseScene:
     def __init__(self, gamescene):
@@ -43,14 +43,15 @@ class PauseScene:
         self.exit_button.onclick = self.exitButton_clicked
    
     def saveButton_clicked(self):
-         Globals.current_scene = self.gamescene
+         FileManager.save_gamescene(self.gamescene)
+         Globals.change_scene(self.gamescene)
     def exitButton_clicked(self):
-         Globals.current_scene = TitleScene()
+         Globals.change_scene(TitleScene())
     def restartButton_clicked(self):
-         Globals.current_scene = GameScene()
+         Globals.change_scene(GameScene())
     def resumeButton_clicked(self):
          self.gamescene.on_resume_game()
-         Globals.current_scene = self.gamescene
+         Globals.change_scene(self.gamescene)
 
 
     def update(self, delta_time):

@@ -2,6 +2,7 @@ import pygame
 import Input
 import Settings
 import Globals
+import FileManager
 
 def update(delta_time):
     Globals.current_scene.update(delta_time)
@@ -19,7 +20,11 @@ pygame.display.set_icon(pygame.image.load(Settings.icon_path))
 delta_time=0
 last_time=pygame.time.get_ticks()
 
-Globals.current_scene = Settings.initial_scene
+
+Globals.best_score = FileManager.load_score()
+import TitleScene
+Globals.current_scene = TitleScene.TitleScene()
+
 while Globals.running:
     #Handle events
     for event in pygame.event.get():
@@ -37,4 +42,7 @@ while Globals.running:
 
     Input.keyboard.late_update()
 
+    if Globals.next_scene != None:
+        Globals.current_scene = Globals.next_scene
+        Globals.next_scene = None
 pygame.quit()

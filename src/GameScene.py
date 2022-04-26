@@ -7,6 +7,7 @@ import Globals
 from Text import Text
 from Snake import Snake
 from GameOverScene import GameOverScene
+import FileManager
 import random
 import time
 
@@ -27,7 +28,7 @@ def get_image_pos(board_pos):
             Settings.topbar_height + Settings.border_size + board_pos[1]*Settings.cell_size[1])
 
 class GameScene:
-    def __init__(self):
+    def __init__(self, savedata = None):
         self.crown = GameObject("images/crown.png", Settings.display_width / 2 + 170, 50)
         self.crown.set_size((self.crown.size[0] / 2, self.crown.size[1] / 2))
         self.best_score_text = Text(str(Globals.best_score), 30, self.crown.pos.x + 35 , 50)
@@ -52,7 +53,7 @@ class GameScene:
         if self.tick >= move_interval:
             self.snake.update()
             if self.snake.is_dead:
-                Globals.current_scene = GameOverScene()
+                self.on_gameover()
             self.check_apple_collision()
             self.tick -= move_interval
 
@@ -79,11 +80,11 @@ class GameScene:
         
       
     def check_apple_collision(self):
-        print(self.apple_boardpos, self.snake.body[0])
         if self.apple_boardpos == self.snake.body[0]:
             self.spawn_apple()
             self.snake.add_snake()
             self.bite_sound.play()
+            self.add_score(1)
               
     def render(self, gameDisplay):
         self.render_backgrounds(gameDisplay)
@@ -115,7 +116,14 @@ class GameScene:
         self.background_sound.stop()
         
         from PauseScene import PauseScene
-        Globals.current_scene=PauseScene(self)
+        Globals.change_scene(PauseScene(self))
 
     def on_resume_game(self):
         self.background_sound.play(-1)
+
+    def on_gameover(self):
+        Globals.recent_score = self.score
+        if self.score > Globals.best_score:
+            Globals.best_score = self.score
+            FileManager.save_score(self.score)
+        Globals.change_scene(GameOverScene())
