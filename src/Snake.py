@@ -6,14 +6,23 @@ from pygame import Vector2
 
 
 class Snake:
-    def __init__(self, initial_length):
+    def __init__(self, initial_length, state_dict = None):
         center = (Settings.board_size[0]/2,Settings.board_size[1]/2)
-        self.body=[Vector2(center[0], center[1] + i) for i in range(initial_length)]
-        self.dir=Vector2(0,-1)
+        if state_dict is None:
+            self.body=[Vector2(center[0], center[1] + i) for i in range(initial_length)]
+            self.dir=Vector2(0,-1)
+            self.last_dir = self.dir
+            self.is_dead = False
+        else:
+            self.body = [Vector2(x[0],x[1]) for x in state_dict['body']]
+            self.dir = Vector2(state_dict['dir'][0], state_dict['dir'][1])
+            self.last_dir = Vector2(state_dict['last_dir'][0], state_dict['last_dir'][1])
+            self.is_dead = state_dict['is_dead']
+
+        self.image_head = pygame.image.load("images/snake/head.png")
+        self.image_body = [pygame.image.load("images/snake/body2.png"), pygame.image.load("images/snake/body1.png")]
         self.new_block = False
-        self.last_dir = self.dir
         self.hit_sound = pygame.mixer.Sound("sounds/Big Boing.wav")
-        self.is_dead = False
 
     def update(self):
         if self.new_block ==True:
@@ -43,7 +52,7 @@ class Snake:
             y=int(95 + 20 + block.y * Settings.cell_size[1])
            
             if index == 0 :
-                snake_body = pygame.image.load("images/snake/head.png")
+                snake_body = self.image_head
                 if self.dir[0] == 1:
                     snake_body = pygame.transform.rotate(snake_body, 270)                 
                 elif self.dir[0] == -1:
@@ -53,14 +62,18 @@ class Snake:
                 else:
                     pass
 
-            elif index % 2 == 0:
-                snake_body = pygame.image.load("images/snake/body2.png")
-            elif index % 2 == 1:
-                snake_body = pygame.image.load("images/snake/body1.png")
+            else:
+                snake_body = self.image_body[index % 2]
             gameDisplay.blit(snake_body, (x,y))
             index += 1
 
     def add_snake(self):
         self.new_block=True
     
-
+    def get_state_dict(self):
+        state = {}
+        state['body'] = [ (cell.x, cell.y) for cell in self.body]
+        state['dir'] = (self.dir.x, self.dir.y)
+        state['last_dir'] = (self.last_dir.x, self.last_dir.y)
+        state['is_dead'] = self.is_dead
+        return state

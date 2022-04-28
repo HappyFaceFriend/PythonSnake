@@ -28,7 +28,17 @@ def get_best_ranking():
     return ranking[0]
 
 def save_gamescene(gamescene):
-    pass
+    state = gamescene.get_state_dict()
+    file = open(Settings.save_state_path, 'w')
+    file.write(str(state))
+    file.close()
 
 def load_gamescene():
-    return None
+    try:
+        file = open(Settings.save_state_path, 'r')
+        state = eval(file.read())
+        file.close()
+        return state
+    except:
+        return None
+    
