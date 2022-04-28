@@ -10,7 +10,6 @@ from RankingScene import RankingScene
 import DataManager
 from pygame import Vector2
 
-
 class TitleScene:
     def __init__(self):
         self.bg = GameObject("images/titlescene/bg.png")
@@ -31,7 +30,6 @@ class TitleScene:
             button = self.buttons[i]
             button.pos = Vector2(Settings.display_width / 2 - button.size[0]/2,
                                  300 + (spacing + button.size[1]) * i)
-
     def update(self, delta_time):
         for button in self.buttons:
             button.update()

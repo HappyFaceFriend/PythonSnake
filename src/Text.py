@@ -17,7 +17,7 @@ class Text:
             self.align_alpha = -1
         elif align == ALIGN_CENTER:
             self.align_alpha = -0.5
-
+        self.submit()
     def align_right(self):
         self.align_alpha = -1
     def align_left(self):
@@ -35,8 +35,9 @@ class Text:
         self.TextRect[2] += self.x + self.align_alpha * width
         self.TextRect[3] += self.y
         
-    def render(self, gameDisplay):
-        self.submit()
+    def render(self, gameDisplay, do_submit = True):
+        if do_submit:
+            self.submit()
         gameDisplay.blit(self.TextSurf, self.TextRect)
     
         

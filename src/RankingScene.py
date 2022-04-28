@@ -30,7 +30,7 @@ class RankingScene:
         self.back_button.pos = Vector2(Settings.display_width / 2 - self.back_button.size[0]/2, Settings.display_height - 80)
 
         show_count = 5
-        ranking = [("asdf",5), ("asd3f",5), ("fasdf",25), ("fasdf",5), ("d asdf",5), ]
+        ranking = DataManager.ranking
         self.texts = []
         self.lines = []
         self.texts.append(Text("#", header_size, text_x[0] , start_y, color = header_color, align = ALIGN_CENTER))
@@ -55,7 +55,7 @@ class RankingScene:
         self.panel.render(gameDisplay)
         self.back_button.render(gameDisplay)
         for text in self.texts:
-            text.render(gameDisplay)
+            text.render(gameDisplay, False)
         for y in self.lines:
             pygame.draw.line(gameDisplay, line_color, [line_x[0],y], [line_x[1],y])
 
