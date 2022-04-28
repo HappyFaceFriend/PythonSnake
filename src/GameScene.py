@@ -24,23 +24,29 @@ initial_length = 4
 
 
 def get_image_pos(board_pos):
-    return (Settings.border_size + board_pos[0]*Settings.cell_size[0],
+    return Vector2(Settings.border_size + board_pos[0]*Settings.cell_size[0],
             Settings.topbar_height + Settings.border_size + board_pos[1]*Settings.cell_size[1])
 
 class GameScene:
-    def __init__(self, savedata = None):
+    def __init__(self, state_dict = None):
         self.crown = GameObject("images/crown.png", Settings.display_width / 2 + 170, 50)
         self.crown.set_size((self.crown.size[0] / 2, self.crown.size[1] / 2))
         best = DataManager.get_best_ranking()
         self.best_score_text = Text(str(0 if best is None else best[1]), 30, self.crown.pos.x + 35 , 50)
-        self.score = 0
-        self.score_text = Text("0", 40, Settings.display_width / 2 , 40)
-
-        self.apple=GameObject("images/apple.png")
-        self.apple_boardpos = Vector2(0,0)
-        self.spawn_apple()
-        self.snake=Snake(initial_length)
         
+        self.apple=GameObject("images/apple.png")
+        if state_dict is None:
+            self.apple_boardpos = Vector2(0,0)
+            self.spawn_apple()
+            self.snake=Snake(initial_length)
+            self.score = 0
+        else:
+            self.apple_boardpos = Vector2(state_dict['apple_boardpos'][0],state_dict['apple_boardpos'][1])
+            self.apple.pos = Vector2(state_dict['apple_pos'][0], state_dict['apple_pos'][1])
+            self.snake = Snake(initial_length, state_dict['snake'])
+            self.score = state_dict['score']
+        
+        self.score_text = Text(str(self.score), 40, Settings.display_width / 2 , 40)
         self.tick = 0
         
         self.background_sound = pygame.mixer.Sound("sounds/I Need a Stack.mp3")
@@ -124,3 +130,11 @@ class GameScene:
 
     def on_gameover(self):
         Globals.change_scene(GameOverScene(self.score))
+        
+    def get_state_dict(self):
+        state = {}
+        state['score'] = self.score
+        state['apple_pos'] = (self.apple.pos.x, self.apple.pos.y)
+        state['apple_boardpos'] = (self.apple_boardpos.x, self.apple_boardpos.y)
+        state['snake'] = self.snake.get_state_dict()
+        return state
