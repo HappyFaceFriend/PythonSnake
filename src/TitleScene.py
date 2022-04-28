@@ -6,8 +6,10 @@ from Text import Text
 from Button import Button
 import Globals
 from GameScene import GameScene
+from RankingScene import RankingScene
 import DataManager
 from pygame import Vector2
+
 
 class TitleScene:
     def __init__(self):
@@ -46,7 +48,7 @@ class TitleScene:
         Globals.change_scene(GameScene(DataManager.load_gamescene()))
 
     def ranking_clicked(self):
-        pass
+        Globals.change_scene(RankingScene())
 
     def exit_clicked(self):
         Globals.quit_game()
