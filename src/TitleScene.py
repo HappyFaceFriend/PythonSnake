@@ -6,6 +6,7 @@ from Text import Text
 from Button import Button
 import Globals
 from GameScene import GameScene
+from RankingScene import RankingScene
 import DataManager
 from pygame import Vector2
 
@@ -29,7 +30,6 @@ class TitleScene:
             button = self.buttons[i]
             button.pos = Vector2(Settings.display_width / 2 - button.size[0]/2,
                                  300 + (spacing + button.size[1]) * i)
-
     def update(self, delta_time):
         for button in self.buttons:
             button.update()
@@ -46,7 +46,7 @@ class TitleScene:
         Globals.change_scene(GameScene(DataManager.load_gamescene()))
 
     def ranking_clicked(self):
-        pass
+        Globals.change_scene(RankingScene())
 
     def exit_clicked(self):
         Globals.quit_game()

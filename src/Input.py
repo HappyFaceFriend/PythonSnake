@@ -60,3 +60,4 @@ class KeyboardInput:
 
 mouse = MouseInput()
 keyboard = KeyboardInput()
+events = []

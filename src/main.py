@@ -29,6 +29,8 @@ while Globals.running:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
             Globals.running = False
+        else:
+            Input.events.append(event)
     #Update inputs
     Input.keyboard.update()
     Input.mouse.update()
@@ -40,7 +42,7 @@ while Globals.running:
     render(Globals.gameDisplay)
 
     Input.keyboard.late_update()
-
+    Input.events = []
     if Globals.next_scene != None:
         Globals.current_scene = Globals.next_scene
         Globals.next_scene = None
