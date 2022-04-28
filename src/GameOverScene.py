@@ -7,7 +7,7 @@ from Button import Button
 import Globals
 
 class GameOverScene:
-    def __init__(self):
+    def __init__(self, recent_score):
         pass
     
     def update(self, delta_time):

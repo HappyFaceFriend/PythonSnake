@@ -2,7 +2,7 @@ import pygame
 import Input
 import Settings
 import Globals
-import FileManager
+import DataManager
 
 def update(delta_time):
     Globals.current_scene.update(delta_time)
@@ -21,7 +21,6 @@ delta_time=0
 last_time=pygame.time.get_ticks()
 
 
-Globals.ranking = FileManager.load_ranking()
 import TitleScene
 Globals.current_scene = TitleScene.TitleScene()
 

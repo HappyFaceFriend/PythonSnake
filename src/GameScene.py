@@ -7,7 +7,7 @@ import Globals
 from Text import Text
 from Snake import Snake
 from GameOverScene import GameOverScene
-import FileManager
+import DataManager
 import random
 import time
 
@@ -31,7 +31,8 @@ class GameScene:
     def __init__(self, savedata = None):
         self.crown = GameObject("images/crown.png", Settings.display_width / 2 + 170, 50)
         self.crown.set_size((self.crown.size[0] / 2, self.crown.size[1] / 2))
-        self.best_score_text = Text(str(Globals.best_score), 30, self.crown.pos.x + 35 , 50)
+        best = DataManager.get_best_ranking()
+        self.best_score_text = Text(str(0 if best is None else best[1]), 30, self.crown.pos.x + 35 , 50)
         self.score = 0
         self.score_text = Text("0", 40, Settings.display_width / 2 , 40)
 
@@ -122,8 +123,4 @@ class GameScene:
         self.background_sound.play(-1)
 
     def on_gameover(self):
-        Globals.recent_score = self.score
-        if self.score > Globals.best_score:
-            Globals.best_score = self.score
-            FileManager.save_score(self.score)
-        Globals.change_scene(GameOverScene())
+        Globals.change_scene(GameOverScene(self.score))

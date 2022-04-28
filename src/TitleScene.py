@@ -6,7 +6,7 @@ from Text import Text
 from Button import Button
 import Globals
 from GameScene import GameScene
-import FileManager
+import DataManager
 from pygame import Vector2
 
 class TitleScene:
@@ -43,7 +43,7 @@ class TitleScene:
         Globals.change_scene(GameScene())
 
     def load_clicked(self):
-        Globals.change_scene(GameScene(FileManager.load_gamescene()))
+        Globals.change_scene(GameScene(DataManager.load_gamescene()))
 
     def ranking_clicked(self):
         pass
