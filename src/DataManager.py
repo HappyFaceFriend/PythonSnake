@@ -1,5 +1,6 @@
 
 import Settings
+import Globals
 
 def save_gamescene(gamescene):
     pass

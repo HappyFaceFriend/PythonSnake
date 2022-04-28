@@ -21,7 +21,7 @@ delta_time=0
 last_time=pygame.time.get_ticks()
 
 
-Globals.best_score = FileManager.load_score()
+Globals.ranking = FileManager.load_ranking()
 import TitleScene
 Globals.current_scene = TitleScene.TitleScene()
 

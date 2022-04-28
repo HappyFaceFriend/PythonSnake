@@ -6,9 +6,13 @@ next_scene = None
 
 running = True
 
-best_score = 0
+ranking = []
 recent_score = 0
 
 def change_scene(scene):
     global next_scene
     next_scene = scene
+
+def quit_game():
+    global running
+    running = False

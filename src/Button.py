@@ -1,5 +1,6 @@
 import pygame
 import Input
+from pygame import Vector2
 
 BUTTON_DEFAULT = 0
 BUTTON_HOVER = 1
@@ -13,12 +14,11 @@ class Button:
         if click_image_path != "":
             self.images["click"] = pygame.image.load(click_image_path)
         self.current_image = self.images["default"]
-        self.x = x
-        self.y = y
+        self.pos = Vector2(x,y)
         self.size = self.current_image.get_rect().size
         self.state = BUTTON_DEFAULT
         self.is_clicking = False
-    def update(self):
+    def update(self, delta_tme = 0):
         if self.is_mouse_bound():
             if self.state == BUTTON_DEFAULT:
                 self.set_state(BUTTON_HOVER)
@@ -49,11 +49,11 @@ class Button:
 
     def is_mouse_bound(self):
         mouse_pos = Input.get_mouse_pos()
-        if (mouse_pos[0] >= self.x and mouse_pos[0] <= self.x+self.size[0] and
-             self.y <= mouse_pos[1] and self.y+self.size[1] >= mouse_pos[1]):
+        if (mouse_pos[0] >= self.pos.x and mouse_pos[0] <= self.pos.x+self.size[0] and
+             self.pos.y <= mouse_pos[1] and self.pos.y+self.size[1] >= mouse_pos[1]):
             return True
         else:
             return False
 
     def render(self, gameDisplay):
-        gameDisplay.blit(self.current_image, (self.x, self.y))
+        gameDisplay.blit(self.current_image, self.pos)
