@@ -8,6 +8,7 @@ import Globals
 
 class GameOverScene:
     def __init__(self, recent_score):
+        # self.
         pass
     
     def update(self, delta_time):

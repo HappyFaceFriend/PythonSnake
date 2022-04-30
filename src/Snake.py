@@ -1,4 +1,5 @@
 import pygame
+from GameOverScene import GameOverScene
 import Settings
 import Globals
 import time 
@@ -7,9 +8,9 @@ from pygame import Vector2
 
 class Snake:
     def __init__(self, initial_length, state_dict = None):
-        center = (Settings.board_size[0]/2,Settings.board_size[1]/2)
+        center = (Settings.board_size[0]/2, Settings.board_size[1]/2)
         if state_dict is None:
-            self.body=[Vector2(center[0], center[1] + i) for i in range(initial_length)]
+            self.body=[Vector2(center[0] , center[1] + i) for i in range(initial_length)]
             self.dir=Vector2(0,-1)
             self.last_dir = self.dir
             self.is_dead = False
@@ -39,17 +40,19 @@ class Snake:
         if not 0<=self.body[0].x<Settings.board_size[0] or not 0<=self.body[0].y<Settings.board_size[1]:
             self.hit_sound.play()
             self.is_dead = True
+            Globals.change_scene(GameOverScene)
 
         for block in self.body[1:]:
             if block == self.body[0]:
                 self.hit_sound.play()
                 self.is_dead = True
+                Globals.change_scene(GameOverScene)
 
     def render(self, gameDisplay):
         index = 0
         for block in self.body:
-            x=int(15 + block.x * Settings.cell_size[0])
-            y=int(95 + 20 + block.y * Settings.cell_size[1])
+            x=int(20 + block.x * Settings.cell_size[0])
+            y=int(100 + 20 + block.y * Settings.cell_size[1])
            
             if index == 0 :
                 snake_body = self.image_head
