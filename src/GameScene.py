@@ -97,7 +97,8 @@ class GameScene:
         self.render_backgrounds(gameDisplay)
         self.render_UIs(gameDisplay)
         self.apple.render(gameDisplay)
-        self.snake.render(gameDisplay)
+        if self.snake.is_dead==False:
+            self.snake.render(gameDisplay)
         
 
     def add_score(self, score):
