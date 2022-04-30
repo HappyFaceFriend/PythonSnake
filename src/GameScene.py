@@ -49,9 +49,11 @@ class GameScene:
         self.score_text = Text(str(self.score), 40, Settings.display_width / 2 , 40)
         self.tick = 0
         
-        self.background_sound = pygame.mixer.Sound("sounds/I Need a Stack.mp3")
-        self.background_sound.set_volume(0.5)
-        self.background_sound.play(-1)
+        pygame.mixer.music.load("sounds/I Need a Stack.mp3")
+        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.play(-1)
+        
+        
         self.bite_sound = pygame.mixer.Sound("sounds/Bite.wav")
         self.bite_sound.set_volume(0.5)
 
