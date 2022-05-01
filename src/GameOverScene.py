@@ -4,6 +4,8 @@ import pygame
 from GameObject import GameObject
 import Input
 import Settings
+import Globals
+from Button import Button
 from Text import ALIGN_CENTER
 from Text import ALIGN_LEFT
 from Text import ALIGN_RIGHT
@@ -41,10 +43,30 @@ class GameOverScene:
         self.yourscore_score = Text(recent_score, size = 30, x= center[0]+center[0]/2, y= height/3, color = text_color, align=ALIGN_CENTER)
         self.bestscore_text = Text("BEST SCORE", size = 30, x= center[0]/2, y= height/3 + 50, color = text_color, align=ALIGN_RIGHT)
         self.bestscore_score = Text(self.best_score[1], size = 30, x= center[0]+center[0]/2, y= height/3 + 50, color = text_color, align=ALIGN_CENTER)
-
+     
+        #button
+        #restart button
+        self.restart_button = Button("images/button_restart.png", "images/button_restart.png", 
+                                "images/button_restart.png")
+        self.restart_button.pos.x = center[0] - self.restart_button.size[0]/2 -100
+        self.restart_button.pos.y = center[1] - self.restart_button.size[1]/2 +150
+        self.restart_button.onclick = self.restartButton_clicked
+        #exit button
+        self.exit_button = Button("images/button_exit.png", "images/button_exit.png", 
+                                "images/button_exit.png")
+        self.exit_button.pos.x = center[0] - self.exit_button.size[0]/2 +100
+        self.exit_button.pos.y = center[1] - self.exit_button.size[1]/2 +150
+        self.exit_button.onclick = self.exitButton_clicked
+    def exitButton_clicked(self):
+        from TitleScene import TitleScene
+        Globals.change_scene(TitleScene())
+    def restartButton_clicked(self):
+        from GameScene import GameScene
+        Globals.change_scene(GameScene())
 
     def update(self, delta_time):
-        pass
+        self.exit_button.update()
+        self.restart_button.update()
 
     def render(self, gameDisplay):
         self.bg.render(gameDisplay)
@@ -53,6 +75,8 @@ class GameOverScene:
         self.yourscore_score.render(gameDisplay)
         self.bestscore_text.render(gameDisplay)
         self.bestscore_score.render(gameDisplay)
-      
+        #buttons
+        self.exit_button.render(gameDisplay)
+        self.restart_button.render(gameDisplay)
     
   
