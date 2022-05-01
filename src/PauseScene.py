@@ -31,7 +31,7 @@ class PauseScene:
 
     def saveButton_clicked(self):
          DataManager.save_gamescene(self.gamescene)
-         Globals.change_scene(TitleScene())
+         Globals.change_scene(TitleScene(saved = True))
 
     def exitButton_clicked(self):
          Globals.change_scene(TitleScene())
