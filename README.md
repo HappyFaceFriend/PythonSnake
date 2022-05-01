@@ -5,5 +5,5 @@ Fun snake game project made with python
 ```
 pip install pygame
 git clone https://github.com/HappyFaceFriend/PythonSnake
-python src/main.py
+python PythonSnake/src/main.py
 ```
