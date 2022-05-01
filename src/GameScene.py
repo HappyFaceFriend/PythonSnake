@@ -48,7 +48,7 @@ class GameScene:
         self.score_text = Text(str(self.score), 50, Vector2(Settings.display_width / 2 , 50))
         self.tick = 0
         
-        pygame.mixer.music.load("sounds/Banjo-Menu-Loop.mp3")
+        pygame.mixer.music.load("sounds/Banjo-Menu-Loop.wav")
         pygame.mixer.music.set_volume(0.5)
         pygame.mixer.music.play(-1)
         
