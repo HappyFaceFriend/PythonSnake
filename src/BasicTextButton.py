@@ -14,4 +14,4 @@ class BasicTextButton(Button):
     
     def render(self, gameDisplay):
         super().render(gameDisplay)
-        self.text_object.render(gameDisplay, False)
+        self.text_object.render(gameDisplay)

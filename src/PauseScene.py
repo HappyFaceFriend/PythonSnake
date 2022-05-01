@@ -5,7 +5,7 @@ from GameScene import GameScene
 import Input
 import Settings
 from Text import Text, ALIGN_CENTER
-from Button import Button
+from BasicTextButton import BasicTextButton
 import Globals
 import DataManager
 from pygame import Vector2
@@ -22,16 +22,12 @@ class PauseScene:
         raw_texts = ["Restart", "Resume", "Save", "Exit"]
         onclicks = [self.restartButton_clicked, self.resumeButton_clicked, self.saveButton_clicked, self.exitButton_clicked]
         self.buttons = []
-        self.texts = []
         for i in range(4):
-            button = Button("images/buttonframe.png","images/buttonframe_hover.png","images/buttonframe_down.png")
+            button = BasicTextButton(raw_texts[i])
             button.pos = Vector2(Settings.display_width / 2 - button.size[0]/2,
                                  140 + (spacing + button.size[1]) * i)
             button.onclick = onclicks[i]
-            text = Text(raw_texts[i], 36, align = ALIGN_CENTER, bold=True, italic=True)
-            text.pos = Vector2(Settings.display_width / 2, button.pos.y + button.size[1]/2 - text.size[1]/2)
             self.buttons.append(button)
-            self.texts.append(text)
 
     def saveButton_clicked(self):
          DataManager.save_gamescene(self.gamescene)
@@ -56,6 +52,4 @@ class PauseScene:
         self.bg.render(gameDisplay)
         for button in self.buttons:
             button.render(gameDisplay)
-        for text in self.texts:
-            text.render(gameDisplay)
 

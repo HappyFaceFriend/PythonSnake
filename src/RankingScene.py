@@ -3,7 +3,7 @@ from GameObject import GameObject
 import Input
 import Settings
 from Text import ALIGN_CENTER, Text
-from Button import Button
+from BasicTextButton import BasicTextButton
 import Globals
 import DataManager
 from pygame import Vector2
@@ -25,7 +25,7 @@ class RankingScene:
         self.panel = GameObject("images/rankingscene/panel.png")
         self.panel.pos = Vector2(Settings.display_width / 2 - self.panel.size[0]/2, Settings.display_height / 2 - self.panel.size[1]/2 - 30)
         
-        self.back_button = Button("images/rankingscene/button_back.png")
+        self.back_button = BasicTextButton("Back")
         self.back_button.onclick = self.back_clicked
         self.back_button.pos = Vector2(Settings.display_width / 2 - self.back_button.size[0]/2, Settings.display_height - 80)
 
