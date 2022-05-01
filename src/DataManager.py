@@ -13,6 +13,8 @@ except:
     pass
 
 def add_ranking(name, score):
+    if score == 0:
+        return
     global ranking
     ranking.append((name, score))
     ranking.sort(key = lambda x: x[1], reverse = True)

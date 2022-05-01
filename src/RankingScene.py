@@ -14,7 +14,7 @@ text_color = (40,40,40)
 line_color = (255,255,255)
 
 start_y = 150
-spacing = 20
+spacing = 15
 header_size = 40
 text_x = (180, 290, 430)
 text_size = 33
@@ -38,13 +38,13 @@ class RankingScene:
         self.texts.append(Text("Score", header_size, Vector2(text_x[2] , start_y), color = header_color, align = ALIGN_CENTER))
         self.lines.append(150 + text_size + spacing/2)
         for i in range(len(ranking)):
-            y = start_y + (text_size+spacing)*(i+1)
+            y = start_y + (text_size+spacing)*(i+1) + 5
             self.texts.append(Text(str(i+1), text_size, Vector2(text_x[0] , y), color=text_color, align = ALIGN_CENTER))
             self.texts.append(Text(ranking[i][0], text_size, Vector2(text_x[1] , y), color=text_color,align = ALIGN_CENTER))
             self.texts.append(Text(str(ranking[i][1]), text_size, Vector2(text_x[2] , y), color=text_color,align = ALIGN_CENTER))
             if i >= show_count-1:
                 break
-            self.lines.append(y + text_size + spacing/2)
+            self.lines.append(y + text_size + spacing/2 - 5)
 
 
     def update(self, delta_time):

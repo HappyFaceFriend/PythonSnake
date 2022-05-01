@@ -36,9 +36,9 @@ class GameScene:
         self.apple=GameObject("images/apple.png")
         if state_dict is None:
             self.apple_boardpos = Vector2(0,0)
-            self.spawn_apple()
             self.snake=Snake(initial_length)
             self.score = 0
+            self.spawn_apple()
         else:
             self.apple_boardpos = Vector2(state_dict['apple_boardpos'][0],state_dict['apple_boardpos'][1])
             self.apple.pos = Vector2(state_dict['apple_pos'][0], state_dict['apple_pos'][1])
