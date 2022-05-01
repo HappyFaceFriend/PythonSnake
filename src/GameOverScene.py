@@ -10,6 +10,7 @@ from Text import ALIGN_RIGHT
 from Text import Text 
 from EditText import EditText
 import DataManager 
+from pygame import Vector2
 
 
 text_color = (100,0,0)
@@ -24,7 +25,7 @@ class GameOverScene:
         center = (width/2, height/2)
 
         self.bg = GameObject("images/gameoverscene/gameoverscene_bg.png")
-        self.bg.set_size((Settings.display_width, Settings.display_height))
+        self.bg.set_size(Settings.display_width, Settings.display_height)
         
         self.best_score = DataManager.get_best_ranking()
 
@@ -38,11 +39,11 @@ class GameOverScene:
         else :
             self.lose_sound.play()
 
-        self.gameover_text = Text("GameOver", size = 50, x= center[0], y= center[1]/4, color = text_color, align= ALIGN_CENTER)
-        self.yourscore_text = Text("YOUR SCORE", size = 30, x= center[0]/2, y= height/3, color = text_color, align=ALIGN_RIGHT)
-        self.yourscore_score = Text(recent_score, size = 30, x= center[0]+center[0]/2, y= height/3, color = text_color, align=ALIGN_CENTER)
-        self.bestscore_text = Text("BEST SCORE", size = 30, x= center[0]/2, y= height/3 + 50, color = text_color, align=ALIGN_RIGHT)
-        self.bestscore_score = Text(self.best_score[1], size = 30, x= center[0]+center[0]/2, y= height/3 + 50, color = text_color, align=ALIGN_CENTER)
+        self.gameover_text = Text("GameOver", fontsize = 50, pos = Vector2(center[0],center[1]/4), color = text_color, align= ALIGN_CENTER)
+        self.yourscore_text = Text("YOUR SCORE", fontsize = 30, pos= Vector2(center[0]/2, height/3), color = text_color, align=ALIGN_RIGHT)
+        self.yourscore_score = Text(recent_score, fontsize = 30, pos= Vector2(center[0]+center[0]/2,height/3), color = text_color, align=ALIGN_CENTER)
+        self.bestscore_text = Text("BEST SCORE", fontsize = 30, pos= Vector2(center[0]/2, height/3 + 50), color = text_color, align=ALIGN_RIGHT)
+        self.bestscore_score = Text(self.best_score[1], fontsize = 30, pos= Vector2(center[0]+center[0]/2, y= height/3 + 50), color = text_color, align=ALIGN_CENTER)
      
 
         self.yourname_text = Text("Your Name", size = 30, x = center[0]/2, y = center[1], color = text_color, align=ALIGN_RIGHT)

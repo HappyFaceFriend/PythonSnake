@@ -4,10 +4,11 @@ from TitleScene import TitleScene
 from GameScene import GameScene
 import Input
 import Settings
-from Text import Text
+from Text import Text, ALIGN_CENTER
 from Button import Button
 import Globals
 import DataManager
+from pygame import Vector2
 
 
 class PauseScene:
@@ -15,34 +16,23 @@ class PauseScene:
         self.gamescene = gamescene
 
         self.bg = GameObject("images/pausescene_bg.png")
-        self.bg.set_size((Settings.display_width, Settings.display_height))
-        center = (Settings.display_width / 2, Settings.display_height / 2)
+        self.bg.set_size(Settings.display_width, Settings.display_height)
         
-        #restart button
-        self.restart_button = Button("images/button_restart.png", "images/button_restart.png", 
-                                "images/button_restart.png")
-        self.restart_button.pos.x = center[0] - self.restart_button.size[0]/2
-        self.restart_button.pos.y = center[1] - self.restart_button.size[1]/2 -200
-        self.restart_button.onclick = self.restartButton_clicked
-        #resume button
-        self.resume_button = Button("images/button_resume.png", "images/button_resume.png", 
-                                "images/button_resume.png")
-        self.resume_button.pos.x = center[0] - self.resume_button.size[0]/2
-        self.resume_button.pos.y = center[1] - self.resume_button.size[1]/2 -70
-        self.resume_button.onclick = self.resumeButton_clicked
-        #save button
-        self.save_button = Button("images/button_save.png", "images/button_save.png", 
-                                "images/button_save.png")
-        self.save_button.pos.x = center[0] - self.save_button.size[0]/2
-        self.save_button.pos.y = center[1] - self.save_button.size[1]/2 +60
-        self.save_button.onclick = self.saveButton_clicked
-        #exit button
-        self.exit_button = Button("images/button_exit.png", "images/button_exit.png", 
-                                "images/button_exit.png")
-        self.exit_button.pos.x = center[0] - self.exit_button.size[0]/2
-        self.exit_button.pos.y = center[1] - self.exit_button.size[1]/2 +190
-        self.exit_button.onclick = self.exitButton_clicked
-   
+        spacing = 50
+        raw_texts = ["Restart", "Resume", "Save", "Exit"]
+        onclicks = [self.restartButton_clicked, self.resumeButton_clicked, self.saveButton_clicked, self.exitButton_clicked]
+        self.buttons = []
+        self.texts = []
+        for i in range(4):
+            button = Button("images/buttonframe.png","images/buttonframe_hover.png","images/buttonframe_down.png")
+            button.pos = Vector2(Settings.display_width / 2 - button.size[0]/2,
+                                 140 + (spacing + button.size[1]) * i)
+            button.onclick = onclicks[i]
+            text = Text(raw_texts[i], 36, align = ALIGN_CENTER, bold=True, italic=True)
+            text.pos = Vector2(Settings.display_width / 2, button.pos.y + button.size[1]/2 - text.size[1]/2)
+            self.buttons.append(button)
+            self.texts.append(text)
+
     def saveButton_clicked(self):
          DataManager.save_gamescene(self.gamescene)
          Globals.change_scene(TitleScene())
@@ -59,15 +49,13 @@ class PauseScene:
 
 
     def update(self, delta_time):
-        self.save_button.update()
-        self.exit_button.update()
-        self.restart_button.update()
-        self.resume_button.update()
+        for button in self.buttons:
+            button.update()
 
     def render(self, gameDisplay):
         self.bg.render(gameDisplay)
-        self.save_button.render(gameDisplay)
-        self.exit_button.render(gameDisplay)
-        self.restart_button.render(gameDisplay)
-        self.resume_button.render(gameDisplay)
+        for button in self.buttons:
+            button.render(gameDisplay)
+        for text in self.texts:
+            text.render(gameDisplay)
 
