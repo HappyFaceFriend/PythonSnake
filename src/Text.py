@@ -12,9 +12,9 @@ class Text:
         self.y = y
         self.color = color
         if align == ALIGN_LEFT:
-            self.align_alpha = 0
-        elif align == ALIGN_RIGHT:
             self.align_alpha = -1
+        elif align == ALIGN_RIGHT:
+            self.align_alpha = 0
         elif align == ALIGN_CENTER:
             self.align_alpha = -0.5
         self.submit()
@@ -30,10 +30,11 @@ class Text:
         self.TextSurf = self.fontInfo.render(str(self.text), True, self.color)
         self.TextRect = self.TextSurf.get_rect()
         width = self.TextRect.width
-        self.TextRect[0] += self.x + self.align_alpha * width
-        self.TextRect[1] += self.y
-        self.TextRect[2] += self.x + self.align_alpha * width
-        self.TextRect[3] += self.y
+        height = self.TextRect.height
+        self.TextRect[0] += self.x + self.align_alpha * width 
+        self.TextRect[1] += self.y + height/2
+        self.TextRect[2] += self.x + self.align_alpha * width 
+        self.TextRect[3] += self.y + height/2
         
     def render(self, gameDisplay, do_submit = True):
         if do_submit:
