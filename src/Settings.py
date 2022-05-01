@@ -10,5 +10,6 @@ display_height = border_size * 2 + topbar_height + board_size[1] * cell_size[1]
 title = "Snake Game"
 icon_path = "images/icon.png"
 font_style = "fonts/arial.ttf"
+save_dir = "data"
 save_state_path = "data/gamescene.dat"
 save_rankings_path = "data/score.dat"

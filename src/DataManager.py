@@ -1,7 +1,8 @@
 
 import Settings
-
+import os
 ranking = []
+
 try:
     file = open(Settings.save_rankings_path, 'r')
     ranking = eval(file.read())
