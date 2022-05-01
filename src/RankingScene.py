@@ -14,10 +14,10 @@ text_color = (40,40,40)
 line_color = (255,255,255)
 
 start_y = 150
-spacing = 15
+spacing = 12
 header_size = 40
 text_x = (180, 290, 430)
-text_size = 33
+text_size = 30
 line_x = (150, 480)
 
 class RankingScene:
@@ -29,7 +29,7 @@ class RankingScene:
         self.back_button.onclick = self.back_clicked
         self.back_button.pos = Vector2(Settings.display_width / 2 - self.back_button.size[0]/2, Settings.display_height - 80)
 
-        show_count = 5
+        show_count = 10
         ranking = DataManager.ranking
         self.texts = []
         self.lines = []
