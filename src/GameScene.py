@@ -9,7 +9,6 @@ from Snake import Snake
 from GameOverScene import GameOverScene
 import DataManager
 import random
-import time
 
 
 background_color = (150,150,255)

@@ -1,5 +1,3 @@
-from cgitb import text
-from tkinter import CENTER
 import pygame
 from GameObject import GameObject
 import Input

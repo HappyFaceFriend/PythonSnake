@@ -1,4 +1,3 @@
-from typing import Sequence
 import pygame
 
 def get_mouse_pos():
