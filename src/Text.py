@@ -30,11 +30,11 @@ class Text:
         self.TextSurf = self.fontInfo.render(str(self.text), True, self.color)
         self.TextRect = self.TextSurf.get_rect()
         width = self.TextRect.width
-        height = self.TextRect.height
+    
         self.TextRect[0] += self.x + self.align_alpha * width 
-        self.TextRect[1] += self.y + height/2
+        self.TextRect[1] += self.y 
         self.TextRect[2] += self.x + self.align_alpha * width 
-        self.TextRect[3] += self.y + height/2
+        self.TextRect[3] += self.y 
         
     def render(self, gameDisplay, do_submit = True):
         if do_submit:

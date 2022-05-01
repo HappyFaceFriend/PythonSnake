@@ -31,7 +31,6 @@ class EditText:
             for event in Input.events:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
-                        self.text = ''
                         self.active = False
                     elif event.key == pygame.K_BACKSPACE:
                         self.text = self.text[:-1]

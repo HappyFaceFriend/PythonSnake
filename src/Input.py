@@ -58,6 +58,7 @@ class KeyboardInput:
     def late_update(self):
         self.last = self.current
 
+
 mouse = MouseInput()
 keyboard = KeyboardInput()
 events = []

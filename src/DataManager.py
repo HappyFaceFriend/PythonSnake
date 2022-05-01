@@ -14,7 +14,7 @@ except:
 
 def add_ranking(name, score):
     global ranking
-    ranking.append(name, score)
+    ranking.append((name, score))
     ranking.sort(key = lambda x: x[1], reverse = True)
     
     file = open(Settings.save_rankings_path, 'w')
