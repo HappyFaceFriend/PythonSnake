@@ -18,6 +18,8 @@ class Button:
         self.size = self.current_image.get_rect().size
         self.state = BUTTON_DEFAULT
         self.is_clicking = False
+        
+
     def update(self, delta_tme = 0):
         if self.is_mouse_bound():
             if self.state == BUTTON_DEFAULT:

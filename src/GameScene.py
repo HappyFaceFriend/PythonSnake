@@ -28,10 +28,10 @@ def get_image_pos(board_pos):
 
 class GameScene:
     def __init__(self, state_dict = None):
-        self.crown = GameObject("images/crown.png", Settings.display_width / 2 + 170, 50)
-        self.crown.set_size((self.crown.size[0] / 2, self.crown.size[1] / 2))
+        self.crown = GameObject("images/crown.png", Vector2(Settings.display_width / 2 + 170, 50))
+        self.crown.set_size(self.crown.size[0] / 2, self.crown.size[1] / 2)
         best = DataManager.get_best_ranking()
-        self.best_score_text = Text(str(0 if best is None else best[1]), 30, self.crown.pos.x + 35 , 50)
+        self.best_score_text = Text(str(0 if best is None else best[1]), 36, Vector2(self.crown.pos.x + 38 , 55))
         
         self.apple=GameObject("images/apple.png")
         if state_dict is None:
@@ -45,7 +45,7 @@ class GameScene:
             self.snake = Snake(initial_length, state_dict['snake'])
             self.score = state_dict['score']
         
-        self.score_text = Text(str(self.score), 40, Settings.display_width / 2 , 40)
+        self.score_text = Text(str(self.score), 50, Vector2(Settings.display_width / 2 , 50))
         self.tick = 0
         
         pygame.mixer.music.load("sounds/I Need a Stack.mp3")
