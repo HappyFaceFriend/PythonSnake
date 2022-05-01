@@ -123,13 +123,13 @@ class GameScene:
         self.score_text.render(gameDisplay)
 
     def pause_game(self):
-        self.background_sound.stop()
+        pygame.mixer.music.pause()
         
         from PauseScene import PauseScene
         Globals.change_scene(PauseScene(self))
 
     def on_resume_game(self):
-        self.background_sound.play(-1)
+        pygame.mixer.music.play(-1)
 
     def on_gameover(self):
         Globals.change_scene(GameOverScene(self.score))

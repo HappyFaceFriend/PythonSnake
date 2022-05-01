@@ -22,11 +22,14 @@ class GameOverScene:
         text_height = text_size[1]
         self.text_pos = (Settings.display_width/2 - text_width/2, Settings.display_height/4 - text_height/2)
 
+        self.text2 = font.render(str(recent_score), True, (100,0,0))
+
     def update(self, delta_time):
         pass
 
     def render(self, gameDisplay):
         self.bg.render(gameDisplay)
         gameDisplay.blit(self.text, self.text_pos)
+        gameDisplay.blit(self.text2, self.text_pos)
     
   
