@@ -1,5 +1,5 @@
 import pygame
-from pygame import Rect
+from pygame import Rect, Vector2
 from Text import Text
 import Input
 
@@ -16,8 +16,8 @@ class EditText:
         self.active_border_color = active_border_color
         self.fill_color = fill_color
         self.max_len = max_len
-        self.text_object = Text(str(self.text), text_size, x, y, color=text_color)
-        self.hint_object = Text(str(self.hint), text_size, x, y, color=hint_color)
+        self.text_object = Text(str(self.text), text_size, Vector2(x, y), color=text_color)
+        self.hint_object = Text(str(self.hint), text_size, Vector2(x, y), color=hint_color)
         self.active = False
 
     def update(self, delta_time):

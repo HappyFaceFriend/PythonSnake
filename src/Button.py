@@ -7,14 +7,14 @@ BUTTON_HOVER = 1
 BUTTON_CLICK = 2
 
 class Button:
-    def __init__(self, default_image_path, hover_image_path = "", click_image_path = "", x = 0, y = 0):
+    def __init__(self, default_image_path, hover_image_path = "", click_image_path = "", pos = Vector2(0,0)):
         self.images = {"default": pygame.image.load(default_image_path)}
         if hover_image_path != "":
             self.images["hover"] = pygame.image.load(hover_image_path)
         if click_image_path != "":
             self.images["click"] = pygame.image.load(click_image_path)
         self.current_image = self.images["default"]
-        self.pos = Vector2(x,y)
+        self.pos = pos
         self.size = self.current_image.get_rect().size
         self.state = BUTTON_DEFAULT
         self.is_clicking = False

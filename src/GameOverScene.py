@@ -46,23 +46,27 @@ class GameOverScene:
         self.bestscore_score = Text(self.best_score[1], fontsize = 30, pos= Vector2(center[0]+center[0]/2, y= height/3 + 50), color = text_color, align=ALIGN_CENTER)
      
 
-        self.yourname_text = Text("Your Name", size = 30, x = center[0]/2, y = center[1], color = text_color, align=ALIGN_RIGHT)
+        self.yourname_text = Text("Your Name", fontsize = 30, pos = Vector2(center[0]/2, y = center[1]), color = text_color, align=ALIGN_RIGHT)
         self.username = EditText(x = center[0]+center[0]/2 + 30 , y = center[1], width = 30, height = 30, text_size = 30)
         
         print(Input.keyboard)
 
         #button
         #restart button
-        self.restart_button = Button("images/button_restart.png", "images/button_restart.png", 
-                                "images/button_restart.png")
-        self.restart_button.pos.x = center[0] - self.restart_button.size[0]/2 -100
-        self.restart_button.pos.y = center[1] - self.restart_button.size[1]/2 +150
+        self.restart_button = Button("images/buttonframe.png","images/buttonframe_hover.png","images/buttonframe_down.png")
+        restart_pos = Vector2(center[0] - 100, center[1] + 150)
+        self.restart_button.pos.x = restart_pos.x - self.restart_button.size[0]/2
+        self.restart_button.pos.y = restart_pos.y - self.restart_button.size[1]/2
+        self.restart_text = Text("Restart", 36, bold = True, italic= True, align = ALIGN_CENTER)
+        self.restart_text.pos = restart_pos - Vector2(self.restart_text.size[0], self.restart_text.size[1])
         self.restart_button.onclick = self.restartButton_clicked
         #exit button
-        self.exit_button = Button("images/button_exit.png", "images/button_exit.png", 
-                                "images/button_exit.png")
-        self.exit_button.pos.x = center[0] - self.exit_button.size[0]/2 +100
-        self.exit_button.pos.y = center[1] - self.exit_button.size[1]/2 +150
+        self.exit_button = Button("images/buttonframe.png","images/buttonframe_hover.png","images/buttonframe_down.png")
+        exit_pos = Vector2(center[0] + 100, center[1] + 150)
+        self.exit_button.pos.x = exit_pos.x - self.restart_button.size[0]/2
+        self.exit_button.pos.y = exit_pos.y - self.restart_button.size[1]/2
+        self.exit_text = Text("Exit", 36, bold = True, italic= True, align = ALIGN_CENTER)
+        self.exit_text.pos = exit_pos - Vector2(self.exit_text.size[0], self.exit_text.size[1])
         self.exit_button.onclick = self.exitButton_clicked
     
     def exitButton_clicked(self):

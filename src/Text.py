@@ -34,6 +34,7 @@ class Text:
         self.fontInfo = pygame.font.SysFont(Settings.font_style, self.fontsize, bold = self.bold, italic = self.italic)
         self.TextSurf = self.fontInfo.render(str(self.text), True, self.color)
         self.TextRect = self.TextSurf.get_rect()
+        width = self.TextRect.width
         self.TextRect[0] += self.pos.x + self.align_alpha * width 
         self.TextRect[1] += self.pos.y
         self.TextRect[2] += self.pos.x + self.align_alpha * width 
