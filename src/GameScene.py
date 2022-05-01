@@ -81,8 +81,15 @@ class GameScene:
             self.pause_game()
 
     def spawn_apple(self):
-        x = random.randint(0, Settings.board_size[0] -1)
-        y = random.randint(0,Settings.board_size[1] -1)
+        retry = True
+        while retry:
+            x = random.randint(0, Settings.board_size[0] -1)
+            y = random.randint(0,Settings.board_size[1] -1)
+            retry = False
+            for cell in self.snake.body:
+                if cell == Vector2(x,y):
+                    retry = True
+                    break
         self.apple_boardpos = Vector2(x,y)
         self.apple.pos = get_image_pos((x,y))
         
