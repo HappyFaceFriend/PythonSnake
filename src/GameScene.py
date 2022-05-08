@@ -66,17 +66,14 @@ class GameScene:
             self.tick -= move_interval
 
         if Input.is_key_down(pygame.K_UP):
-            if self.snake.last_dir.y!=1:
-                self.snake.dir=Vector2(0,-1)
+            self.snake.set_dir(Vector2(0,-1))
         if Input.is_key_down(pygame.K_DOWN):
-            if self.snake.last_dir.y!=-1:
-                self.snake.dir=Vector2(0,1)
+            self.snake.set_dir(Vector2(0,1))
         if Input.is_key_down(pygame.K_LEFT):
-            if self.snake.last_dir.x!=1:
-                self.snake.dir=Vector2(-1,0)
+            self.snake.set_dir(Vector2(-1,0))
         if Input.is_key_down(pygame.K_RIGHT):
-            if self.snake.last_dir.x!=-1:
-                self.snake.dir=Vector2(1,0)
+            self.snake.set_dir(Vector2(1,0))
+            
         if Input.is_key_down(pygame.K_ESCAPE):
             self.pause_game()
 

@@ -51,6 +51,17 @@ class Snake:
                 return True
         return False
         
+    def set_dir(self, dir):
+        if dir == Vector2(0,-1) and self.last_dir.y == 1:
+            return
+        if dir == Vector2(0,1) and self.last_dir.y == -1:
+            return
+        if dir == Vector2(-1, 0) and self.last_dir.x == 1:
+            return
+        if dir == Vector2(1, 0) and self.last_dir.x == -1:
+            return
+        self.dir = dir
+        
     def render(self, gameDisplay):
         index = 0
         for block in self.body:
