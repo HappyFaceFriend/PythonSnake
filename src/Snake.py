@@ -37,19 +37,30 @@ class Snake:
             self.body=copy[:]
         self.last_dir = self.dir
         
-        if not 0<=self.body[0].x<Settings.board_size[0] or not 0<=self.body[0].y<Settings.board_size[1]:
+        if self.check_death():
             self.hit_sound.play()
             self.is_dead = True
             time.sleep(0.3)
             Globals.change_scene(GameOverScene)
 
+    def check_death(self):
+        if not 0<=self.body[0].x<Settings.board_size[0] or not 0<=self.body[0].y<Settings.board_size[1]:
+            return True
         for block in self.body[1:]:
             if block == self.body[0]:
-                self.hit_sound.play()
-                self.is_dead = True
-                time.sleep(0.3)
-                Globals.change_scene(GameOverScene)
-
+                return True
+        return False
+    def set_dir(self, dir):
+        if dir == Vector2(0,-1) and self.last_dir.y == 1:
+            return
+        if dir == Vector2(0,1) and self.last_dir.y == -1:
+            return
+        if dir == Vector2(-1, 0) and self.last_dir.x == 1:
+            return
+        if dir == Vector2(1, 0) and self.last_dir.x == -1:
+            return
+        self.dir = dir
+        
     def render(self, gameDisplay):
         index = 0
         for block in self.body:
