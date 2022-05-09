@@ -1,4 +1,5 @@
 import pygame
+from AutoGameScene import AutoGameScene
 from GameObject import GameObject
 import Input
 import Settings
@@ -6,6 +7,7 @@ from Text import Text, ALIGN_CENTER
 from Button import Button
 import Globals
 from GameScene import GameScene
+from AutoGameScene import AutoGameScene
 from RankingScene import RankingScene
 import DataManager
 from pygame import Vector2
@@ -17,10 +19,10 @@ class TitleScene:
         self.bg.set_size(Settings.display_width, Settings.display_height)
         self.saved = saved
         spacing = 30
-        raw_texts = ["Play", "Load", "Ranking", "Exit"]
-        onclicks = [self.play_clicked, self.load_clicked, self.ranking_clicked, self.exit_clicked]
+        raw_texts = ["Single Play", "Auto Play", "Load", "Ranking", "Exit"]
+        onclicks = [self.play_clicked, self.auto_clicked, self.load_clicked, self.ranking_clicked, self.exit_clicked]
         self.buttons = []
-        for i in range(4):
+        for i in range(len(raw_texts)):
             button = BasicTextButton(raw_texts[i])
             button.pos = Vector2(Settings.display_width / 2 - button.size[0]/2, 300 + (spacing + button.size[1]) * i)
             button.onclick = onclicks[i]
@@ -40,6 +42,9 @@ class TitleScene:
         
     def play_clicked(self):
         Globals.change_scene(GameScene())
+
+    def auto_clicked(self):
+        Globals.change_scene(AutoGameScene())
 
     def load_clicked(self):
         Globals.change_scene(GameScene(DataManager.load_gamescene()))

@@ -1,27 +1,14 @@
 
 from pygame import Vector2
-import Settings
 
 UP = Vector2(0, -1)
 DOWN = Vector2(0, 1)
 LEFT = Vector2(-1, 0)
 RIGHT = Vector2(1, 0)
 
-class CommandQueue:
-    def __init__(self):
-        self.list = []
-    def enqueue(self, command):
-        self.list.append(command)
-    def dequeue(self):
-        item = self.list.pop(0)
-        return item
-    def clear(self):
-        self.list = []
-
-
 class SnakeAI:
     def __init__(self, snake, initial_apple_pos):
-        self.command_queue = CommandQueue()
+        self.command_list = []
         self.snake = snake
         self.apple_pos = initial_apple_pos
         pass
@@ -42,11 +29,11 @@ class SnakeAI:
     def get_snake_state_at(self, delta_frames): #get snake's state after delta_frames.
         return {}
 
-    #returns index of the command in command queue that passes point in the future, -1 if it doesn't.
+    #returns index of the command in command list that passes point in the future, -1 if it doesn't.
     def check_commands_pass_point(self, point):
         return -1
 
-    #returns index of the command in command queue that kills the snake in the future, -1 if it doesn't.
+    #returns index of the command in command list that kills the snake in the future, -1 if it doesn't.
     def check_commands_death(self):
         return -1
     

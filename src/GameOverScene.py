@@ -16,8 +16,9 @@ from pygame import Vector2
 text_color = (100,0,0)
 
 class GameOverScene:
-    def __init__(self, recent_score):
+    def __init__(self, recent_score, isauto = False):
         self.recent_score = recent_score
+        self.isauto = isauto
         pygame.mixer.music.stop()
 
         width = Settings.display_width
@@ -50,7 +51,7 @@ class GameOverScene:
         self.bestscore_text = Text("BEST SCORE", 30, Vector2(300, 270), color = text_color, align=ALIGN_RIGHT)
         self.bestscore_score = Text(self.best_score, 40, Vector2(400, 270), color = text_color, align=ALIGN_CENTER)
      
-        if recent_score > 0:
+        if not isauto and recent_score > 0:
             self.yourname_text = Text("Enter Your Name: ", fontsize = 30, pos = Vector2(center[0],340), color = text_color, align=ALIGN_RIGHT)
             self.username = EditText(x = center[0] + 20 , y = 340 - 5, width = 150, height = 30, text_size = 30, hint="Name", active = True)
         
