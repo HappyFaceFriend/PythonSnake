@@ -81,3 +81,5 @@ class AutoGameScene(GameScene):
         from PauseScene import PauseScene
         Globals.change_scene(PauseScene(self, True))
 
+    def on_gameover(self):
+        Globals.change_scene(GameOverScene(self.score, True))
