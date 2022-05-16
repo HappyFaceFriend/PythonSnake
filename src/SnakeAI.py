@@ -18,18 +18,6 @@ class SnakeAI:
         pass
 
     def pre_movement(self): #called at each frame just before movement of snake
-        bodies = self.get_snake_bodies_until(len(self.snake.body)//4)
-        for body in bodies:
-            for i in range(4, len(body)):
-                if body[0][0] == body[i][0] and body[0][1] == body[i][1]:
-                    self.collision = True
-                    self.command_list.clear()
-                    dir = (body[i][0] - body[i-1][0], body[i][1] - body[i-1][1])
-                    self.command_list.append(Vector2(dir))
-                    break
-            if self.collision == True:
-                self.collision = False
-                break
 
         if self.apple_pos[0] < self.snake.body[0][0]: # 사과가 뱀보다 왼쪽에 위치한 경우 
             if self.snake.last_dir == LEFT:
@@ -70,6 +58,18 @@ class SnakeAI:
                         self.command_list.append(LEFT)
                 else:
                     self.command_list.append(UP)
+        bodies = self.get_snake_bodies_until(len(self.snake.body)//4)
+        for body in bodies:
+            for i in range(4, len(body)):
+                if body[0][0] == body[i][0] and body[0][1] == body[i][1]:
+                    self.collision = True
+                    self.command_list.clear()
+                    dir = (body[i][0] - body[i-1][0], body[i][1] - body[i-1][1])
+                    self.command_list.append(Vector2(dir))
+                    break
+            if self.collision == True:
+                self.collision = False
+                break
 
     def post_movement(self):  # called at each frame right after movement of snake
 
