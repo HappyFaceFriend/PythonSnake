@@ -1,4 +1,5 @@
 
+from turtle import up
 from pygame import Vector2
 from Settings import board_size
 
@@ -10,20 +11,84 @@ RIGHT = Vector2(1, 0)
 #Only control snake with command_list! Don't modify snake itself
 class SnakeAI:
     def __init__(self, snake, initial_apple_pos):
-        self.command_list = [LEFT, LEFT, DOWN, UP, RIGHT]
+        self.command_list = []
         self.snake = snake
         self.apple_pos = initial_apple_pos
+        self.collision = False
         pass
 
     def pre_movement(self): #called at each frame just before movement of snake
-        pass
+        bodies = self.get_snake_bodies_until(len(self.snake.body)//4)
+        for body in bodies:
+            for i in range(4, len(body)):
+                if body[0][0] == body[i][0] and body[0][1] == body[i][1]:
+                    self.collision = True
+                    self.command_list.clear()
+                    dir = (body[i][0] - body[i-1][0], body[i][1] - body[i-1][1])
+                    self.command_list.append(Vector2(dir))
+                    break
+            if self.collision == True:
+                self.collision = False
+                break
 
-    def post_movement(self): #called at each frame right after movement of snake
-        pass
+        if self.apple_pos[0] < self.snake.body[0][0]: # 사과가 뱀보다 왼쪽에 위치한 경우 
+            if self.snake.last_dir == LEFT:
+               pass
+            elif self.snake.last_dir == RIGHT:
+                if self.apple_pos[1] > self.snake.body[0][1]:
+                    self.command_list.append(DOWN) 
+                else:
+                    self.command_list.append(UP)
+            elif self.snake.last_dir == UP or self.snake.last_dir == DOWN:
+                self.command_list.append(LEFT) 
+
+        elif self.apple_pos[0] > self.snake.body[0][0]: # 사과가 뱀보다 오른쪽에 위치한 경우
+            if self.snake.last_dir == RIGHT:
+               pass
+            elif self.snake.last_dir == LEFT:
+                if self.apple_pos[1] > self.snake.body[0][1]:
+                    self.command_list.append(DOWN) 
+                else:
+                    self.command_list.append(UP)
+            elif self.snake.last_dir == UP or self.snake.last_dir == DOWN:
+                self.command_list.append(RIGHT) 
+
+        elif self.apple_pos[0] == self.snake.body[0][0]:
+            if self.apple_pos[1] > self.snake.body[0][1]:
+                if self.snake.last_dir == UP:
+                    if self.snake.body[0][0] < 20:
+                        self.command_list.append(RIGHT)
+                    else:
+                        self.command_list.append(LEFT)
+                else:
+                    self.command_list.append(DOWN) 
+            else:
+                if self.snake.last_dir == DOWN:
+                    if self.snake.body[0][0] < 20:
+                        self.command_list.append(RIGHT)
+                    else:
+                        self.command_list.append(LEFT)
+                else:
+                    self.command_list.append(UP)
+
+    def post_movement(self):  # called at each frame right after movement of snake
+
+        bodies = self.get_snake_bodies_until(len(self.snake.body)//4)
+        for body in bodies:
+            for i in range(4, len(body)):
+                if body[0][0] == body[i][0] and body[0][1] == body[i][1]:
+                    self.collision = True
+                    self.command_list.clear()
+                    dir = (body[i][0] - body[i-1][0], body[i][1] - body[i-1][1])
+                    self.command_list.append(Vector2(dir))
+                    break
+            if self.collision == True:
+                self.collision = False
+                break
 
     def post_apple_collision(self, new_apple_pos): #called right after the snake eats an apple
         self.apple_pos = new_apple_pos
-
+        
     def get_snake_bodies_until(self, delta_frames): #returns snake's body states until delta_frames
         body = list(self.snake.body)
         lastdir = self.snake.last_dir
