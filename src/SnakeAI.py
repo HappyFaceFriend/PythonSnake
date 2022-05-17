@@ -13,7 +13,6 @@ class SnakeAI:
         self.command_list = [LEFT, LEFT, DOWN, UP, RIGHT]
         self.snake = snake
         self.apple_pos = initial_apple_pos
-        pass
 
     def pre_movement(self): #called at each frame just before movement of snake
         pass
