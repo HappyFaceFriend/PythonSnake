@@ -10,6 +10,7 @@ from Snake import Snake
 from GameOverScene import GameOverScene
 import DataManager
 import random
+import os
 from SnakeAI import SnakeAI, UP, DOWN, LEFT, RIGHT
 
 
