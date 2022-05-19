@@ -1,6 +1,8 @@
 
 from pygame import Vector2
 from Settings import board_size
+import AStar
+import Settings
 
 UP = Vector2(0, -1)
 DOWN = Vector2(0, 1)
@@ -10,9 +12,22 @@ RIGHT = Vector2(1, 0)
 #Only control snake with command_list! Don't modify snake itself
 class SnakeAI:
     def __init__(self, snake, initial_apple_pos):
-        self.command_list = [LEFT, LEFT, DOWN, UP, RIGHT]
+        self.command_list = []
         self.snake = snake
         self.apple_pos = initial_apple_pos
+        self.find_path_to_apple()
+
+    def find_path_to_apple(self):
+        map = [[0 for i in range(Settings.board_size[0])] for j in range(Settings.board_size[1])]
+        for cell in self.snake.body[1:]:
+            map[int(cell.x)][int(cell.y)] = 1
+        head = (int(self.snake.body[0].x), int(self.snake.body[0].y))
+        target = (self.apple_pos.x, self.apple_pos.y)
+        result = AStar.aStar(map, head, target)
+        print(head, self.apple_pos)
+        if result != None:
+            for i in range(len(result)-1):
+                self.command_list.append(Vector2(result[i+1][0] - result[i][0], result[i+1][1] - result[i][1]))
 
     def pre_movement(self): #called at each frame just before movement of snake
         pass
@@ -22,6 +37,7 @@ class SnakeAI:
 
     def post_apple_collision(self, new_apple_pos): #called right after the snake eats an apple
         self.apple_pos = new_apple_pos
+        self.find_path_to_apple()
 
     def get_snake_bodies_until(self, delta_frames): #returns snake's body states until delta_frames
         body = list(self.snake.body)

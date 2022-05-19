@@ -13,7 +13,7 @@ import random
 from SnakeAI import SnakeAI, UP, DOWN, LEFT, RIGHT
 
 
-move_interval = 0.1
+move_interval = 0.01
 
 initial_length = 4
 
