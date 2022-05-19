@@ -92,7 +92,7 @@ class GameOverScene:
     def update(self, delta_time):
         self.exit_button.update()
         self.restart_button.update()
-        if self.recent_score > 0:
+        if self.recent_score > 0 and not self.isauto:
             self.username.update()
             self.submit_button.update()
 
@@ -103,7 +103,7 @@ class GameOverScene:
         self.yourscore_score.render(gameDisplay)
         self.bestscore_text.render(gameDisplay)
         self.bestscore_score.render(gameDisplay)
-        if self.recent_score > 0:
+        if self.recent_score > 0 and not self.isauto:
             self.yourname_text.render(gameDisplay)
             self.username.render(gameDisplay)
             self.submit_button.render(gameDisplay)
