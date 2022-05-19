@@ -11,20 +11,14 @@ class Node:
     def __eq__(self, other):
         return self.position == other.position
 
-def heuristic(node, goal, D=1, D2=2 ** 0.5):  # Diagonal Distance
-    dx = abs(node.position[0] - goal.position[0])
-    dy = abs(node.position[1] - goal.position[1])
-    return D * (dx + dy) + (D2 - 2 * D) * min(dx, dy)
-
 def aStar(maze, start, end):
     startNode = Node(None, start)
     endNode = Node(None, end)
-
+    
     openList = []
     closedList = []
 
     openList.append(startNode)
-
     while openList:
         currentNode = openList[0]
         currentIdx = 0
@@ -65,44 +59,20 @@ def aStar(maze, start, end):
 
             new_node = Node(currentNode, nodePosition)
             children.append(new_node)
-
         for child in children:
-
             if child in closedList:
                 continue
 
             child.g = currentNode.g + 1
-            child.h = ((child.position[0] - endNode.position[0]) **
-                       2) + ((child.position[1] - endNode.position[1]) ** 2)            
+            child.h = ((child.position[0] - endNode.position[0]) ** 2) + ((child.position[1] - endNode.position[1]) ** 2)            
             child.f = child.g + child.h
 
-            if len([openNode for openNode in openList
-                    if child == openNode and child.g > openNode.g]) > 0:
-                continue
-                    
-            openList.append(child)
-
-
-def main():
-    # 1은 장애물
-    maze = [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0]]
-
-    start = (0, 0)
-    end = (7, 6)
-
-    path = aStar(maze, start, end)
-    print(path)
-
-
-if __name__ == '__main__':
-    main()
-    # [(0, 0), (1, 1), (2, 2), (3, 3), (4, 3), (5, 4), (6, 5), (7, 6)]
+            cont = False
+            for openNode in openList:
+                if child == openNode and child.g > openNode.g > 0:
+                    cont=True
+                    break
+            if cont:
+                    continue
+            if not child in openList:
+                openList.append(child)

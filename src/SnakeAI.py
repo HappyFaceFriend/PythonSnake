@@ -15,25 +15,75 @@ class SnakeAI:
         self.command_list = []
         self.snake = snake
         self.apple_pos = initial_apple_pos
+        self.go_random = False
+        self.random_dirs = [UP, LEFT, DOWN, RIGHT]
         self.find_path_to_apple()
 
     def find_path_to_apple(self):
-        map = [[0 for i in range(Settings.board_size[0])] for j in range(Settings.board_size[1])]
-        for cell in self.snake.body[1:]:
-            map[int(cell.x)][int(cell.y)] = 1
-        head = (int(self.snake.body[0].x), int(self.snake.body[0].y))
-        target = (self.apple_pos.x, self.apple_pos.y)
-        result = AStar.aStar(map, head, target)
-        print(head, self.apple_pos)
+        target = (int(self.apple_pos.x), int(self.apple_pos.y))
+        result = self.find_path_to(target)
         if result != None:
-            for i in range(len(result)-1):
-                self.command_list.append(Vector2(result[i+1][0] - result[i][0], result[i+1][1] - result[i][1]))
+            self.go_random = False
+            self.go_through_path(result)
+        else:
+            while self.random_dirs[0] != self.snake.last_dir:
+                self.random_dirs = self.random_dirs[1:] + [self.random_dirs[0]]
+            self.go_random = True
+
+    def go_through_path(self, result):
+        if result == None:
+            return
+        for i in range(len(result)-1):
+            self.command_list.append(Vector2(result[i+1][0] - result[i][0], result[i+1][1] - result[i][1]))
+
+    def find_path_to(self, target):
+        width = [Settings.board_size[0]-1, 0]
+        height = [Settings.board_size[1]-1, 0]
+        for cell in self.snake.body:
+            width = min(width[0], int(cell.x)), max(width[1], int(cell.x))
+            height = min(height[0], int(cell.y)), max(height[1], int(cell.y))
+        width = [min(width[0], target[0]), max(width[1], target[0])]
+        height = [min(height[0], target[1]), max(height[1], target[1])]
+        if width[0]-1 >= 0:
+            width[0] = width[0] -1
+        if width[1]+1 <= Settings.board_size[0]-1:
+            width[1] = width[1] + 1
+        if height[0]-1 >= 0:
+            height[0] = height[0] -1
+        if height[1]+1 <= Settings.board_size[1]-1:
+            height[1] = height[1] + 1
+        
+        map = [[0 for i in range(height[0], height[1]+1)] for j in range(width[0], width[1]+1)]
+        for cell in self.snake.body[1:]:
+            map[int(cell.x) - width[0]][int(cell.y)-height[0]] = 1
+        head = (int(self.snake.body[0].x) - width[0], int(self.snake.body[0].y) - height[0])
+        target = (target[0] - width[0], target[1] - height[0])
+        return AStar.aStar(map, head, target)
+
+    def check_empty(self, pos):
+        if not 0<=pos.x<board_size[0] or not 0<=pos.y<board_size[1]:
+            return False
+        for block in self.snake.body[1:]:
+            if block == pos:
+                return False
+        return True
 
     def pre_movement(self): #called at each frame just before movement of snake
-        pass
+        if self.go_random:
+            i = 0
+            while not self.check_empty(self.snake.body[0] + self.random_dirs[0]) and i<4:
+                self.random_dirs = self.random_dirs[1:] + [self.random_dirs[0]]
+                i += 1
+            self.command_list.append(self.random_dirs[0])
+            
 
     def post_movement(self): #called at each frame right after movement of snake
-        pass
+        if self.go_random:
+            self.find_path_to_apple()
+        else:
+            #만약 머리가 몸을 스쳐지나가려하면
+            #한칸 띄고 가게 해야함
+            pass
 
     def post_apple_collision(self, new_apple_pos): #called right after the snake eats an apple
         self.apple_pos = new_apple_pos

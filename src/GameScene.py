@@ -78,17 +78,12 @@ class GameScene:
             self.pause_game()
 
     def spawn_apple(self):
-        retry = True
-        while retry:
-            x = random.randint(0, Settings.board_size[0] -1)
-            y = random.randint(0,Settings.board_size[1] -1)
-            retry = False
-            for cell in self.snake.body:
-                if cell == Vector2(x,y):
-                    retry = True
-                    break
-        self.apple_boardpos = Vector2(x,y)
-        self.apple.pos = get_image_pos((x,y))
+        map = [(i,j) for i in range(Settings.board_size[0]) for j in range(Settings.board_size[1])]
+        for cell in self.snake.body:
+            map.remove((cell.x, cell.y))
+        pos = map[random.randint(0, len(map)-1)]
+        self.apple_boardpos = Vector2(pos[0], pos[1])
+        self.apple.pos = get_image_pos((pos))
         
       
     def check_apple_collision(self):
