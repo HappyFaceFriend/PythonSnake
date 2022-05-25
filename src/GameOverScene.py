@@ -87,10 +87,11 @@ class GameOverScene:
         Globals.change_scene(TitleScene())
     
     def restartButton_clicked(self):
-        from GameScene import GameScene
         if self.isauto:
+            from AutoGameScene import AutoGameScene
             Globals.change_scene(AutoGameScene())
-        else
+        else:
+            from GameScene import GameScene
             Globals.change_scene(GameScene())
 
     def update(self, delta_time):
