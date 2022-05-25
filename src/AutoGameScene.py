@@ -13,7 +13,7 @@ import random
 from SnakeAI import SnakeAI, UP, DOWN, LEFT, RIGHT
 
 
-move_interval = 0.005
+move_interval = 0.1
 
 initial_length = 4
 
@@ -57,8 +57,6 @@ class AutoGameScene(GameScene):
                 
             self.snake.update()
             if self.snake.is_dead:
-                while(True):
-                    pass
                 self.on_gameover()
                 
             self.check_apple_collision()

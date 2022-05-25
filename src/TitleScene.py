@@ -18,12 +18,15 @@ class TitleScene:
         self.bg = GameObject("images/titlescene/bg.png")
         self.bg.set_size(Settings.display_width, Settings.display_height)
         self.saved = saved
-        spacing = 30
+        spacing = 20
         raw_texts = ["Single Play", "Auto Play", "Load", "Ranking", "Exit"]
         onclicks = [self.play_clicked, self.auto_clicked, self.load_clicked, self.ranking_clicked, self.exit_clicked]
         self.buttons = []
         for i in range(len(raw_texts)):
             button = BasicTextButton(raw_texts[i])
+            button.set_size(150,50)
+            button.text_object.fontsize = 28
+            button.text_object.submit()
             button.pos = Vector2(Settings.display_width / 2 - button.size[0]/2, 300 + (spacing + button.size[1]) * i)
             button.onclick = onclicks[i]
             self.buttons.append(button)

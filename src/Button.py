@@ -18,7 +18,15 @@ class Button:
         self.size = self.current_image.get_rect().size
         self.state = BUTTON_DEFAULT
         self.is_clicking = False
-        
+    
+    def set_size(self, width, height):
+        self.images["default"] = pygame.transform.scale(self.images["default"], (int(width), int(height)))
+        if "hover" in self.images.keys():
+            self.images["hover"] = pygame.transform.scale(self.images["hover"], (int(width), int(height)))
+        if "click" in self.images.keys():
+            self.images["click"] = pygame.transform.scale(self.images["click"], (int(width), int(height)))
+        self.current_image = pygame.transform.scale(self.current_image, (int(width), int(height)))
+        self.size = self.current_image.get_rect().size
 
     def update(self, delta_tme = 0):
         if self.is_mouse_bound():
