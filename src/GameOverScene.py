@@ -1,4 +1,5 @@
 import pygame
+from AutoGameScene import AutoGameScene
 from GameObject import GameObject
 import Input
 import Settings
@@ -87,7 +88,10 @@ class GameOverScene:
     
     def restartButton_clicked(self):
         from GameScene import GameScene
-        Globals.change_scene(GameScene())
+        if self.isauto:
+            Globals.change_scene(AutoGameScene())
+        else
+            Globals.change_scene(GameScene())
 
     def update(self, delta_time):
         self.exit_button.update()
