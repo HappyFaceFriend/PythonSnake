@@ -1,5 +1,4 @@
 import pygame
-from AutoGameScene import AutoGameScene
 from GameObject import GameObject
 import Input
 import Settings
