@@ -53,8 +53,8 @@ class GameOverScene:
         self.bestscore_score = Text(self.best_score, 25, Vector2(400, 300), color = text_color, align=ALIGN_CENTER)
      
         if not isauto and recent_score > 0:
-            self.yourname_text = Text("Enter Your Name: ", fontsize = 30, pos = Vector2(center[0],340), color = text_color, align=ALIGN_RIGHT)
-            self.username = EditText(x = center[0] + 20 , y = 340 - 5, width = 150, height = 30, text_size = 30, hint="Name", active = True)
+            self.yourname_text = Text("Enter Your Name: ", fontsize = 25, pos = Vector2(center[0],340), color = text_color, align=ALIGN_RIGHT)
+            self.username = EditText(x = center[0] + 20 , y = 340 - 5, width = 130, height = 30, text_size = 30, hint="Name", active = True)
         
             self.submit_button = BasicTextButton("Submit",flag = True)
             self.submit_button.pos = Vector2(center[0] - self.submit_button.size[0]/2, 400)

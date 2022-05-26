@@ -28,30 +28,30 @@ class DGameOverScene:
         height = Settings.display_height
         center = (width/2, height/2)
 
-        self.bg = GameObject("images/gameoverscene/gameoverscene_bg.png")
-        self.bg.set_size(Settings.display_width, Settings.display_height)
+        self.bg = GameObject("images/gameoverscene/gameoverscene_bg.png", pos = (int(width/4),int(height/3)))
+        self.bg.set_size(int(width/2), int(height/3))
 
         self.win_sound = pygame.mixer.Sound("sounds/Tada.wav")
         self.win_sound.set_volume(0.5)
         self.win_sound.play()
       
 
-        self.gameover_text = Text("GameOver", 60, Vector2(center[0], 130), text_color, align= ALIGN_CENTER)
+        self.gameover_text = Text("GameOver", 40, Vector2(center[0], 270), text_color, align= ALIGN_CENTER)
         if snakeAdead and not snakeBdead:
-            self.win_text=Text("Snake B win!",100,Vector2(center[0],center[1]-70),text_color2, align= ALIGN_CENTER,)
+            self.win_text=Text("Snake B win!",50,Vector2(center[0],center[1]-25),text_color2, align= ALIGN_CENTER,)
         if snakeBdead and not snakeAdead:
-            self.win_text=Text("Snake A win!",100,Vector2(center[0],center[1]-70),text_color2, align= ALIGN_CENTER,)
+            self.win_text=Text("Snake A win!",50,Vector2(center[0],center[1]-25),text_color2, align= ALIGN_CENTER,)
         if snakeAdead and snakeBdead:
-            self.win_text=Text("No Winners!",100,Vector2(center[0],center[1]-70),text_color2, align= ALIGN_CENTER,)
+            self.win_text=Text("No Winners!",50,Vector2(center[0],center[1]-25),text_color2, align= ALIGN_CENTER,)
         
         #button
         #restart button
-        self.restart_button = BasicTextButton("Restart")
-        self.restart_button.pos = Vector2(center[0] - 100- self.restart_button.size[0]/2, center[1] + 180- self.restart_button.size[1]/2)
+        self.restart_button = BasicTextButton("Restart", flag = True)
+        self.restart_button.pos = Vector2(center[0] - 70- self.restart_button.size[0]/2, center[1] + 70- self.restart_button.size[1]/2)
         self.restart_button.onclick = self.restartButton_clicked
         #exit button
-        self.exit_button = BasicTextButton("Exit")
-        self.exit_button.pos = Vector2(center[0] + 100 - self.restart_button.size[0]/2, center[1] + 180 - self.restart_button.size[1]/2)
+        self.exit_button = BasicTextButton("Exit", flag = True)
+        self.exit_button.pos = Vector2(center[0] + 70 - self.restart_button.size[0]/2, center[1] + 70 - self.restart_button.size[1]/2)
         self.exit_button.onclick = self.exitButton_clicked
        
     def exitButton_clicked(self):
