@@ -1,5 +1,6 @@
 import pygame
 from AutoGameScene import AutoGameScene
+from DGameScene import DGameScene
 from GameObject import GameObject
 import Input
 import Settings
@@ -18,9 +19,10 @@ class TitleScene:
         self.bg = GameObject("images/titlescene/bg.png")
         self.bg.set_size(Settings.display_width, Settings.display_height)
         self.saved = saved
+
         spacing = 20
-        raw_texts = ["Single Play", "Auto Play", "Load", "Ranking", "Exit"]
-        onclicks = [self.play_clicked, self.auto_clicked, self.load_clicked, self.ranking_clicked, self.exit_clicked]
+        raw_texts = ["Single Play", "Dual Play", "Auto Play", "Load", "Ranking", "Exit"]
+        onclicks = [self.play_clicked, self.Dplay_clicked ,self.auto_clicked, self.load_clicked, self.ranking_clicked, self.exit_clicked]
         self.buttons = []
         for i in range(len(raw_texts)):
             button = BasicTextButton(raw_texts[i])
@@ -45,6 +47,9 @@ class TitleScene:
         
     def play_clicked(self):
         Globals.change_scene(GameScene())
+
+    def Dplay_clicked(self):
+        Globals.change_scene(DGameScene())
 
     def auto_clicked(self):
         Globals.change_scene(AutoGameScene())
