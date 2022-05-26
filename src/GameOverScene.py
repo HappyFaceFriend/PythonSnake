@@ -1,3 +1,4 @@
+from turtle import Turtle
 import pygame
 from GameObject import GameObject
 import Input
@@ -25,8 +26,8 @@ class GameOverScene:
         height = Settings.display_height
         center = (width/2, height/2)
 
-        self.bg = GameObject("images/gameoverscene/gameoverscene_bg.png")
-        self.bg.set_size(Settings.display_width, Settings.display_height)
+        self.bg = GameObject("images/gameoverscene/gameoverscene_bg.png",(int(width/4),int(height/4)))
+        self.bg.set_size(int(width/2), int(height/2))
         
         self.recent_score = recent_score
         if DataManager.get_best_ranking() is None:
@@ -45,31 +46,31 @@ class GameOverScene:
         else :
             self.lose_sound.play()
 
-        self.gameover_text = Text("GameOver", 60, Vector2(center[0], 130), text_color, align= ALIGN_CENTER,)
-        self.yourscore_text = Text("YOUR SCORE", 30, Vector2(300, 220), color = text_color, align=ALIGN_RIGHT)
-        self.yourscore_score = Text(recent_score, 40, Vector2(400, 220), color = text_color, align=ALIGN_CENTER)
-        self.bestscore_text = Text("BEST SCORE", 30, Vector2(300, 270), color = text_color, align=ALIGN_RIGHT)
-        self.bestscore_score = Text(self.best_score, 40, Vector2(400, 270), color = text_color, align=ALIGN_CENTER)
+        self.gameover_text = Text("GameOver", 40, Vector2(center[0], 200), text_color, align= ALIGN_CENTER,)
+        self.yourscore_text = Text("YOUR SCORE", 25, Vector2(300, 270), color = text_color, align=ALIGN_RIGHT)
+        self.yourscore_score = Text(recent_score, 25, Vector2(400, 270), color = text_color, align=ALIGN_CENTER)
+        self.bestscore_text = Text("BEST SCORE", 25, Vector2(300, 300), color = text_color, align=ALIGN_RIGHT)
+        self.bestscore_score = Text(self.best_score, 25, Vector2(400, 300), color = text_color, align=ALIGN_CENTER)
      
         if not isauto and recent_score > 0:
             self.yourname_text = Text("Enter Your Name: ", fontsize = 30, pos = Vector2(center[0],340), color = text_color, align=ALIGN_RIGHT)
             self.username = EditText(x = center[0] + 20 , y = 340 - 5, width = 150, height = 30, text_size = 30, hint="Name", active = True)
         
-            self.submit_button = BasicTextButton("Submit")
-            self.submit_button.pos = Vector2(center[0] - self.submit_button.size[0]/2, 380)
+            self.submit_button = BasicTextButton("Submit",flag = True)
+            self.submit_button.pos = Vector2(center[0] - self.submit_button.size[0]/2, 400)
             self.submit_button.onclick = self.submit_clicked
 
-            self.submit_text = Text("Submitted successfully!", fontsize = 25, pos = Vector2(center[0], 460), color = (30,30,30), align=ALIGN_CENTER)
+            self.submit_text = Text("Submitted successfully!", fontsize = 25, pos = Vector2(center[0], 450), color = (30,30,30), align=ALIGN_CENTER)
             self.submitted = False
 
         #button
         #restart button
-        self.restart_button = BasicTextButton("Restart")
-        self.restart_button.pos = Vector2(center[0] - 100- self.restart_button.size[0]/2, center[1] + 180- self.restart_button.size[1]/2)
+        self.restart_button = BasicTextButton("Restart",flag = True)
+        self.restart_button.pos = Vector2(center[0] - 70 - self.restart_button.size[0]/2, center[1] + 140- self.restart_button.size[1]/2)
         self.restart_button.onclick = self.restartButton_clicked
         #exit button
-        self.exit_button = BasicTextButton("Exit")
-        self.exit_button.pos = Vector2(center[0] + 100 - self.restart_button.size[0]/2, center[1] + 180 - self.restart_button.size[1]/2)
+        self.exit_button = BasicTextButton("Exit",flag = True)
+        self.exit_button.pos = Vector2(center[0] + 70 - self.restart_button.size[0]/2, center[1] + 140 - self.restart_button.size[1]/2)
         self.exit_button.onclick = self.exitButton_clicked
 
     def submit_clicked(self):
