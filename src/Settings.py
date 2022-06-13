@@ -25,3 +25,14 @@ font_style = base / "fonts/arial.ttf"
 save_dir = base / "data"
 save_state_path = base / "data/gamescene.dat"
 save_rankings_path = base / "data/score.dat"
+
+bg_path = base / "images/titlescene/bg.png"
+
+f_path = base / "images/buttonframe.png"
+f_hover_path = base / "images/buttonframe_hover.png"
+f_down_path = base / "images/buttonframe_down.png"
+
+f2_path = base / "images/buttonframe2.png"
+f2_hover_path = base / "images/buttonframe2_hover.png"
+f2_down_path = base / "images/buttonframe2_down.png"
+

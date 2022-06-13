@@ -16,7 +16,7 @@ from BasicTextButton import BasicTextButton
 
 class TitleScene:
     def __init__(self, saved = False):
-        self.bg = GameObject("images/titlescene/bg.png")
+        self.bg = GameObject(Settings.bg_path)
         self.bg.set_size(Settings.display_width, Settings.display_height)
         self.saved = saved
 
