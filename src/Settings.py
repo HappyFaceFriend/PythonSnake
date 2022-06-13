@@ -1,4 +1,3 @@
-
 border_size = 20
 topbar_height = 100
 
@@ -13,9 +12,16 @@ Dcell_size=(8,8)
 Ddisplay_width=border_size*2+Dboard_size[0]*cell_size[0]
 Ddisplay_height=border_size*2+Dboard_size[1]*cell_size[1]
 
+
 title = "Snake Game"
-icon_path = "images/icon.png"
-font_style = "fonts/arial.ttf"
-save_dir = "data"
-save_state_path = "data/gamescene.dat"
-save_rankings_path = "data/score.dat"
+
+
+import os
+from pathlib import Path
+
+base = Path(__file__).absolute().parent.parent
+icon_path = base / "images/icon.png"
+font_style = base / "fonts/arial.ttf"
+save_dir = base / "data"
+save_state_path = base / "data/gamescene.dat"
+save_rankings_path = base / "data/score.dat"
