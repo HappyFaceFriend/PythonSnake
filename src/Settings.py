@@ -19,20 +19,20 @@ title = "Snake Game"
 import os
 from pathlib import Path
 
-base = Path(__file__).absolute().parent.parent
-icon_path = base / "images/icon.png"
-font_style = base / "fonts/arial.ttf"
-save_dir = base / "data"
-save_state_path = base / "data/gamescene.dat"
-save_rankings_path = base / "data/score.dat"
+base = str(Path(__file__).absolute().parent.parent)
+icon_path = os.path.join(base, "images/icon.png")
+font_style = os.path.join(base, "fonts/arial.ttf")
+save_dir = os.path.join(base, "data")
+save_state_path = os.path.join(base, "data/gamescene.dat")
+save_rankings_path = os.path.join(base, "data/score.dat")
 
-bg_path = base / "images/titlescene/bg.png"
+bg_path = os.path.join(base, "images/titlescene/bg.png")
 
-f_path = base / "images/buttonframe.png"
-f_hover_path = base / "images/buttonframe_hover.png"
-f_down_path = base / "images/buttonframe_down.png"
+f_path = os.path.join(base, "images/buttonframe.png")
+f_hover_path = os.path.join(base, "images/buttonframe_hover.png")
+f_down_path = os.path.join(base, "images/buttonframe_down.png")
 
-f2_path = base / "images/buttonframe2.png"
-f2_hover_path = base / "images/buttonframe2_hover.png"
-f2_down_path = base / "images/buttonframe2_down.png"
+f2_path = os.path.join(base, "images/buttonframe2.png")
+f2_hover_path = os.path.join(base, "images/buttonframe2_hover.png")
+f2_down_path = os.path.join(base, "images/buttonframe2_down.png")
 
