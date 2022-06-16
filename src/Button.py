@@ -18,6 +18,7 @@ class Button:
         self.size = self.current_image.get_rect().size
         self.state = BUTTON_DEFAULT
         self.is_clicking = False
+        self.sound_effect = pygame.mixer.Sound("sounds/Button_click.wav")
     
     def set_size(self, width, height):
         self.images["default"] = pygame.transform.scale(self.images["default"], (int(width), int(height)))
@@ -36,13 +37,17 @@ class Button:
                 self.is_clicking = True
                 self.set_state(BUTTON_CLICK)
             elif Input.is_mouse_button_up() and self.is_clicking:
-                self.onclick()
+                self.button_clicked()
                 self.set_state(BUTTON_HOVER)
         else:
             self.set_state(BUTTON_DEFAULT)
 
     def onclick(self):
         pass
+
+    def button_clicked(self):
+        self.sound_effect.play()
+        self.onclick()
 
     def set_state(self, state):
         if self.state == state:
@@ -60,7 +65,7 @@ class Button:
     def is_mouse_bound(self):
         mouse_pos = Input.get_mouse_pos()
         if (mouse_pos[0] >= self.pos.x and mouse_pos[0] <= self.pos.x+self.size[0] and
-             self.pos.y <= mouse_pos[1] and self.pos.y+self.size[1] >= mouse_pos[1]):
+            self.pos.y <= mouse_pos[1] and self.pos.y+self.size[1] >= mouse_pos[1]):
             return True
         else:
             return False
