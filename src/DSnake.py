@@ -7,8 +7,9 @@ from pygame import Vector2
 
 
 class DSnake:
-    def __init__(self, initial_length, state_dict = None):
+    def __init__(self, initial_length, snake_number, state_dict = None):
         center = (Settings.Dboard_size[0]/2, Settings.Dboard_size[1]/2)
+        print(state_dict)
         if state_dict is None:
             self.body=[Vector2(center[0] , center[1] + i) for i in range(initial_length)]
             self.dir=Vector2(0,-1)
@@ -21,7 +22,10 @@ class DSnake:
             self.is_dead = state_dict['is_dead']
 
         self.image_head = pygame.image.load("images/dualmode/dual_head.png")
-        self.image_body = [pygame.image.load("images/dualmode/dual_body2.png"), pygame.image.load("images/dualmode/dual_body1.png")]
+        if (snake_number == 2):
+            self.image_body = [pygame.image.load("images/dualmode/dual_body2.png"), pygame.image.load("images/dualmode/dual_body1B.png")]
+        else:
+            self.image_body = [pygame.image.load("images/dualmode/dual_body2.png"), pygame.image.load("images/dualmode/dual_body1A.png")]
         self.new_block = False
         self.hit_sound = pygame.mixer.Sound("sounds/Big Boing.wav")
 

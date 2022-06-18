@@ -34,11 +34,11 @@ class DGameScene:
         if state_dict is None:
             self.appleA_boardpos = Vector2(0,0)
             self.appleB_boardpos = Vector2(0,0)
-            self.snakeA=DSnake(initial_length)
+            self.snakeA=DSnake(initial_length, 1)
             self.snakeA.body=[Vector2(5 , 5 - i) for i in range(initial_length)]
             self.snakeA.dir=Vector2(0,1)
             self.snakeA.last_dir = self.snakeA.dir
-            self.snakeB=DSnake(initial_length)
+            self.snakeB=DSnake(initial_length, 2)
             self.snakeB.body=[Vector2(Settings.Dboard_size[0] -5 , Settings.Dboard_size[1] -6  + i) for i in range(initial_length)]
             self.snakeB.dir=Vector2(0,-1)
             self.snakeB.last_dir = self.snakeB.dir
@@ -46,12 +46,13 @@ class DGameScene:
             self.spawn_appleA()
             self.spawn_appleB()
         else:
+            print("does it enter here ?")
             self.appleA_boardpos = Vector2(state_dict['appleA_boardpos'][0],state_dict['appleA_boardpos'][1])
             self.appleA.pos = Vector2(state_dict['appleA_pos'][0], state_dict['appleA_pos'][1])
             self.appleB_boardpos = Vector2(state_dict['appleB_boardpos'][0],state_dict['appleB_boardpos'][1])
             self.appleB.pos = Vector2(state_dict['appleB_pos'][0], state_dict['appleB_pos'][1])
-            self.snakeA = DSnake(initial_length, state_dict['snakeA'])
-            self.snakeB = DSnake(initial_length, state_dict['snakeB'])
+            self.snakeA = DSnake(initial_length, 1, state_dict['snakeA'])
+            self.snakeB = DSnake(initial_length, 2, state_dict['snakeB'])
         
         self.tick = 0
         
