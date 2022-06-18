@@ -37,7 +37,7 @@ class GameOverScene:
 
 
         self.win_sound = pygame.mixer.Sound("sounds/Tada.wav")
-        self.lose_sound = pygame.mixer.Sound("sounds/lose.wav")
+        self.lose_sound = pygame.mixer.Sound("sounds/Lose.wav")
         self.win_sound.set_volume(0.5)
         self.lose_sound.set_volume(0.5)
        
